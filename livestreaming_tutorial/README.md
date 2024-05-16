@@ -1,16 +1,8 @@
-# livestreaming_tutorial
+## Flutter Livestreaming Tutorial
 
-A new Flutter project.
+<img src="../readme-assets/card-video-livestreaming.png" alt="Livestream Header image" style="box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); border-radius: 1rem" />
 
-## Getting Started
+📚 [Livestreaming Tutorial](https://getstream.io/video/sdk/flutter/tutorial/livestreaming/)   |||   💻 [Livestreaming Repository](https://github.com/GetStream/flutter-video-tutorials/tree/main/livestreaming_tutorial)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The Flutter livestreaming tutorial shows you how to quickly build a Livestreaming app leveraging Stream's Video API and the Stream Video Flutter components.
+The underlying API is very flexible and allows you to build nearly any type of video experience.
