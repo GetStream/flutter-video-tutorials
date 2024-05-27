@@ -1,93 +1,97 @@
 import 'package:flutter/material.dart';
 import 'package:stream_video_flutter/stream_video_flutter.dart';
 
-class LiveStreamScreen extends StatelessWidget {
+class LiveStreamScreen extends StatefulWidget {
   const LiveStreamScreen({
     super.key,
-    required this.livestreamCall,
   });
 
-  final Call livestreamCall;
+  @override
+  State<LiveStreamScreen> createState() => _LiveStreamScreenState();
+}
+
+class _LiveStreamScreenState extends State<LiveStreamScreen> {
+  final callId = "REPLACE_WITH_CALL_ID";
+  Call? _livestreamCall;
+
+  @override
+  void initState() {
+    super.initState();
+    _initCall();
+  }
+
+  void _initCall() async {
+    var call = StreamVideo.instance.makeCall(
+      id: callId,
+      callType: StreamCallType.liveStream(),
+    );
+    await call.getOrCreate();
+    await call.join();
+    setState(() {
+      _livestreamCall = call;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (_livestreamCall == null) {
+      return const Material(
+        child: Center(
+          child: Text('Initialising...'),
+        ),
+      );
+    }
+
     return SafeArea(
       child: StreamBuilder(
-        stream: livestreamCall.state.valueStream,
-        initialData: livestreamCall.state.value,
+        stream: _livestreamCall!.state.valueStream,
+        initialData: _livestreamCall!.state.value,
         builder: (context, snapshot) {
           final callState = snapshot.data!;
-          final participant = callState.callParticipants.first;
+          final participant = callState.callParticipants.firstOrNull;
           return Scaffold(
-            body: Stack(
-              children: [
-                if (snapshot.hasData)
-                  StreamVideoRenderer(
-                    call: livestreamCall,
-                    videoTrackType: SfuTrackType.video,
-                    participant: participant,
-                  ),
-                if (!snapshot.hasData)
-                  const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                if (snapshot.hasData && callState.status.isDisconnected)
-                  const Center(
-                    child: Text('Stream not live'),
-                  ),
-                Positioned(
-                  top: 12.0,
-                  left: 12.0,
-                  child: Material(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    color: Colors.red,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Viewers: ${callState.callParticipants.length}',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 12.0,
-                  right: 12.0,
-                  child: Material(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    color: Colors.black,
-                    child: GestureDetector(
-                      onTap: () {
-                        livestreamCall.end();
-                        Navigator.pop(context);
-                      },
-                      child: const Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            'End Call',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+            appBar: AppBar(
+              actions: [
+                OutlinedButton(
+                  onPressed: () {
+                    _livestreamCall!.end();
+                    Navigator.pop(context);
+                  },
+                  child: const Text('End Call'),
                 ),
               ],
+              title: Text('Viewers: ${callState.callParticipants.length}'),
+              automaticallyImplyLeading: false,
+            ),
+            body: Builder(
+              builder: (context) {
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  if (snapshot.hasData && callState.isBackstage) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('Stream not live'),
+                        ElevatedButton(
+                          onPressed: () {
+                            _livestreamCall!.goLive();
+                          },
+                          child: const Text('Go Live'),
+                        ),
+                      ],
+                    );
+                  }
+
+                  return StreamVideoRenderer(
+                    call: _livestreamCall!,
+                    videoTrackType: SfuTrackType.video,
+                    participant: participant!,
+                  );
+                }
+              },
             ),
           );
         },
