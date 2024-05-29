@@ -19,6 +19,13 @@ Future<void> main() async {
     userToken: 'REPLACE_WITH_TOKEN',
   );
 
+  // For connecting anonymous users
+  // StreamVideo(
+  //   'REPLACE_WITH_API_KEY',
+  //   user: User.anonymous(),
+  //   userToken: 'REPLACE_WITH_TOKEN',
+  // );
+
   runApp(
     const MaterialApp(
       home: HomeScreen(),
