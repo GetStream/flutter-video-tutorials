@@ -12,7 +12,7 @@ import firebase_core
 import firebase_messaging
 import path_provider_foundation
 import shared_preferences_foundation
-import sqflite
+import sqflite_darwin
 import stream_webrtc_flutter
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
