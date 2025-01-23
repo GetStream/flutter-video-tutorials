@@ -42,8 +42,10 @@ class _ViewLivestreamScreenState extends State<ViewLivestreamScreen> {
     }
 
     return Scaffold(
-      body: LivestreamPlayer(
-        call: _livestreamCall!,
+      body: SafeArea(
+        child: LivestreamPlayer(
+          call: _livestreamCall!,
+        ),
       ),
     );
   }
