@@ -9,14 +9,15 @@ Future<void> main() async {
 
   // Initialize Stream video and set the API key for our app.
   StreamVideo(
-    'REPLACE_WITH_API_KEY',
+    'mmhfdzb5evj2',
     user: const User(
       info: UserInfo(
         name: 'John Doe',
-        id: 'REPLACE_WITH_USER_ID',
+        id: 'demo',
+        role: 'admin'
       ),
     ),
-    userToken: 'REPLACE_WITH_TOKEN',
+    userToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL1RhbG9uX0thcnJkZSIsInVzZXJfaWQiOiJUYWxvbl9LYXJyZGUiLCJ2YWxpZGl0eV9pbl9zZWNvbmRzIjo2MDQ4MDAsImlhdCI6MTczNzcxNDU0MiwiZXhwIjoxNzM4MzE5MzQyfQ.mroo_g3_UNMWokded07DCx34d8VX6pBhyuEpzD1ZBGE',
   );
 
   // For connecting anonymous users

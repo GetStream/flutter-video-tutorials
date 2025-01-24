@@ -9,7 +9,7 @@ class ViewLivestreamScreen extends StatefulWidget {
 }
 
 class _ViewLivestreamScreenState extends State<ViewLivestreamScreen> {
-  final callId = "REPLACE_WITH_CALL_ID";
+  final callId = "demo12345";
 
   Call? _livestreamCall;
 
