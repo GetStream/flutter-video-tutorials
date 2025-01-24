@@ -19,7 +19,7 @@ Future<void> main() async {
         role: 'admin',
       ),
     ),
-    userToken: 'REPLACE_WITH_USER_TOKEN',
+    userToken: 'REPLACE_WITH_TOKEN',
   );
 
   // For connecting anonymous users
