@@ -17,7 +17,7 @@ Future<void> main() async {
         role: 'admin'
       ),
     ),
-    userToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL1RhbG9uX0thcnJkZSIsInVzZXJfaWQiOiJUYWxvbl9LYXJyZGUiLCJ2YWxpZGl0eV9pbl9zZWNvbmRzIjo2MDQ4MDAsImlhdCI6MTczNzcxNDU0MiwiZXhwIjoxNzM4MzE5MzQyfQ.mroo_g3_UNMWokded07DCx34d8VX6pBhyuEpzD1ZBGE',
+    userToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL0dpbGFkX1BlbGxhZW9uIiwidXNlcl9pZCI6IkdpbGFkX1BlbGxhZW9uIiwidmFsaWRpdHlfaW5fc2Vjb25kcyI6NjA0ODAwLCJpYXQiOjE3Mzc3MTQ5NzcsImV4cCI6MTczODMxOTc3N30.h-lqD7KPZCq7G6izI-73XO9nOC5ZahpGIHbzWfFmKOw',
   );
 
   // For connecting anonymous users
