@@ -11,6 +11,7 @@ class LiveStreamScreen extends StatefulWidget {
 }
 
 class _LiveStreamScreenState extends State<LiveStreamScreen> {
+  // TODO: REPLACE CREDENTIALS
   final callId = "REPLACE_WITH_CALL_ID";
   Call? _livestreamCall;
 
@@ -42,36 +43,38 @@ class _LiveStreamScreenState extends State<LiveStreamScreen> {
       );
     }
 
-    return SafeArea(
-      child: StreamBuilder(
-        stream: _livestreamCall!.state.valueStream,
-        initialData: _livestreamCall!.state.value,
-        builder: (context, snapshot) {
-          final callState = snapshot.data!;
-          final participant = callState.callParticipants.firstOrNull;
-          return Scaffold(
-            appBar: AppBar(
-              actions: [
-                OutlinedButton(
+    return StreamBuilder(
+      stream: _livestreamCall!.state.valueStream,
+      initialData: _livestreamCall!.state.value,
+      builder: (context, snapshot) {
+        final callState = snapshot.data!;
+        return Scaffold(
+          appBar: AppBar(
+            actions: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: OutlinedButton(
                   onPressed: () {
                     _livestreamCall!.end();
                     Navigator.pop(context);
                   },
                   child: const Text('End Call'),
                 ),
-              ],
-              title: Text('Viewers: ${callState.callParticipants.length}'),
-              automaticallyImplyLeading: false,
-            ),
-            body: Builder(
-              builder: (context) {
-                if (!snapshot.hasData) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  if (snapshot.hasData && callState.isBackstage) {
-                    return Column(
+              ),
+            ],
+            title: Text('Viewers: ${callState.callParticipants.length}'),
+            automaticallyImplyLeading: false,
+          ),
+          body: Builder(
+            builder: (context) {
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                if (snapshot.hasData && callState.isBackstage) {
+                  return Center(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text('Stream not live'),
@@ -82,20 +85,33 @@ class _LiveStreamScreenState extends State<LiveStreamScreen> {
                           child: const Text('Go Live'),
                         ),
                       ],
-                    );
-                  }
-
-                  return StreamVideoRenderer(
-                    call: _livestreamCall!,
-                    videoTrackType: SfuTrackType.video,
-                    participant: participant!,
+                    ),
                   );
                 }
-              },
-            ),
-          );
-        },
-      ),
+
+                return StreamCallContainer(
+                  call: _livestreamCall!,
+                  callContentBuilder: (context, call, state) {
+                    var participant = state.callParticipants.firstWhere(
+                        (e) => e.userId == StreamVideo.instance.currentUser.id);
+
+                    return StreamCallContent(
+                      call: call,
+                      callState: callState,
+                      callParticipantsBuilder: (context, call, state) {
+                        return StreamCallParticipants(
+                          call: call,
+                          participants: [participant],
+                        );
+                      },
+                    );
+                  },
+                );
+              }
+            },
+          ),
+        );
+      },
     );
   }
 }
