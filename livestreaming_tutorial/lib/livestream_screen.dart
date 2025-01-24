@@ -11,7 +11,8 @@ class LiveStreamScreen extends StatefulWidget {
 }
 
 class _LiveStreamScreenState extends State<LiveStreamScreen> {
-  final callId = "D43og1xeBlSx";
+  // TODO: REPLACE CREDENTIALS
+  final callId = "REPLACE_WITH_CALL_ID";
   Call? _livestreamCall;
 
   @override
@@ -47,7 +48,6 @@ class _LiveStreamScreenState extends State<LiveStreamScreen> {
       initialData: _livestreamCall!.state.value,
       builder: (context, snapshot) {
         final callState = snapshot.data!;
-        final participant = callState.callParticipants.firstOrNull;
         return Scaffold(
           appBar: AppBar(
             actions: [
@@ -89,10 +89,23 @@ class _LiveStreamScreenState extends State<LiveStreamScreen> {
                   );
                 }
 
-                return StreamVideoRenderer(
+                return StreamCallContainer(
                   call: _livestreamCall!,
-                  videoTrackType: SfuTrackType.video,
-                  participant: participant!,
+                  callContentBuilder: (context, call, state) {
+                    var participant = state.callParticipants.firstWhere(
+                        (e) => e.userId == StreamVideo.instance.currentUser.id);
+
+                    return StreamCallContent(
+                      call: call,
+                      callState: callState,
+                      callParticipantsBuilder: (context, call, state) {
+                        return StreamCallParticipants(
+                          call: call,
+                          participants: [participant],
+                        );
+                      },
+                    );
+                  },
                 );
               }
             },

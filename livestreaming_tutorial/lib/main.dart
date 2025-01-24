@@ -7,17 +7,19 @@ Future<void> main() async {
   // Ensure Flutter is able to communicate with Plugins
   WidgetsFlutterBinding.ensureInitialized();
 
+  // TODO: REPLACE CREDENTIALS
+  // Get demo credentials from: https://getstream.io/video/sdk/flutter/tutorial/livestreaming/
   // Initialize Stream video and set the API key for our app.
   StreamVideo(
-    'mmhfdzb5evj2',
+    'REPLACE_WITH_API_KEY',
     user: const User(
       info: UserInfo(
-        name: 'John Doe',
-        id: 'demo',
-        role: 'admin'
+        name: 'REPLACE_WITH_USER_NAME',
+        id: 'REPLACE_WITH_USER_ID',
+        role: 'admin',
       ),
     ),
-    userToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL0dpbGFkX1BlbGxhZW9uIiwidXNlcl9pZCI6IkdpbGFkX1BlbGxhZW9uIiwidmFsaWRpdHlfaW5fc2Vjb25kcyI6NjA0ODAwLCJpYXQiOjE3Mzc3MTQ5NzcsImV4cCI6MTczODMxOTc3N30.h-lqD7KPZCq7G6izI-73XO9nOC5ZahpGIHbzWfFmKOw',
+    userToken: 'REPLACE_WITH_USER_TOKEN',
   );
 
   // For connecting anonymous users

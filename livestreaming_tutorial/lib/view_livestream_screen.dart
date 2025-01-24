@@ -9,7 +9,8 @@ class ViewLivestreamScreen extends StatefulWidget {
 }
 
 class _ViewLivestreamScreenState extends State<ViewLivestreamScreen> {
-  final callId = "D43og1xeBlSx";
+  // TODO: REPLACE CREDENTIALS
+  final callId = "REPLACE_WITH_CALL_ID";
 
   Call? _livestreamCall;
 
