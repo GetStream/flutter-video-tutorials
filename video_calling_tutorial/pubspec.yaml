@@ -28,9 +28,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  stream_video: ^0.4.0
-  stream_video_flutter: ^0.4.0
-  stream_video_push_notification: ^0.4.0
+  stream_video: ^0.7.1
+  stream_video_flutter: ^0.7.1
+  stream_video_push_notification: ^0.7.1
   flutter:
     sdk: flutter
 

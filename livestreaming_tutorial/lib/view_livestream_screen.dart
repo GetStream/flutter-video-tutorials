@@ -11,7 +11,7 @@ class ViewLivestreamScreen extends StatefulWidget {
 class _ViewLivestreamScreenState extends State<ViewLivestreamScreen> {
   final callId = "REPLACE_WITH_CALL_ID";
 
-  late Call? _livestreamCall;
+  Call? _livestreamCall;
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _ViewLivestreamScreenState extends State<ViewLivestreamScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if(_livestreamCall == null) {
+    if (_livestreamCall == null) {
       return const Material(
         child: Center(
           child: Text('Initialising...'),
@@ -42,8 +42,10 @@ class _ViewLivestreamScreenState extends State<ViewLivestreamScreen> {
     }
 
     return Scaffold(
-      body: LivestreamPlayer(
-        call: _livestreamCall!,
+      body: SafeArea(
+        child: LivestreamPlayer(
+          call: _livestreamCall!,
+        ),
       ),
     );
   }
