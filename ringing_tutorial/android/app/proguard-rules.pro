@@ -19,3 +19,6 @@
 
 # Keep DOMImplementationRegistry
 -keep class org.w3c.dom.bootstrap.DOMImplementationRegistry { *; }
+
+# Keep flutter_callkit_incoming keys
+ -keep class com.hiennv.flutter_callkit_incoming.** { *; }

@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:ringing_tutorial/app_initializer.dart';
 import 'package:ringing_tutorial/call_screen.dart';
+import 'package:ringing_tutorial/env_consts.dart';
 import 'package:ringing_tutorial/firebase_options.dart';
 import 'package:ringing_tutorial/login_screen.dart';
 import 'package:ringing_tutorial/tutorial_user.dart';
@@ -22,7 +23,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     if (tutorialUser == null) return;
 
     final streamVideo = StreamVideo.create(
-      '{REPLACE_WITH_YOUR_STREAM_API_KEY}',
+      EnvConsts.streamApiKey,
       user: tutorialUser.user,
       userToken: tutorialUser.token,
       options: const StreamVideoOptions(
@@ -32,10 +33,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       pushNotificationManagerProvider:
           StreamVideoPushNotificationManager.create(
         iosPushProvider: const StreamVideoPushProvider.apn(
-          name: '{REPLACE_WITH_YOUR_APN_PROVIDER_NAME}',
+          name: EnvConsts.iosPushProviderName,
         ),
         androidPushProvider: const StreamVideoPushProvider.firebase(
-          name: '{REPLACE_WITH_YOUR_FIREBASE_PROVIDER_NAME}',
+          name: EnvConsts.androidPushProviderName,
         ),
         pushParams: const StreamVideoPushParams(
           appName: 'Ringing Tutorial',
@@ -89,34 +90,18 @@ class _HomeScreenState extends State<HomeScreen> {
     if (CurrentPlatform.isIos) return;
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _consumeIncomingCall();
-    });
-  }
-
-  Future<void> _consumeIncomingCall() async {
-    final calls =
-        await StreamVideo.instance.pushNotificationManager?.activeCalls();
-    if (calls == null || calls.isEmpty) return;
-
-    final callResult = await StreamVideo.instance.consumeIncomingCall(
-      uuid: calls.first.uuid!,
-      cid: calls.first.callCid!,
-    );
-
-    callResult.fold(success: (result) async {
-      final call = result.data;
-      await call.accept();
-
-      if (mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CallScreen(call: call),
-          ),
-        );
-      }
-    }, failure: (error) {
-      debugPrint('Error consuming incoming call: $error');
+      StreamVideo.instance.consumeAndAcceptActiveCall(
+        onCallAccepted: (callToJoin) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CallScreen(
+                call: callToJoin,
+              ),
+            ),
+          );
+        },
+      );
     });
   }
 
