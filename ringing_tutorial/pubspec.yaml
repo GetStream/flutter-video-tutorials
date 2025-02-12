@@ -22,13 +22,5 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-dependency_overrides:
-  stream_video:
-    path: ../../stream-video-flutter/packages/stream_video
-  stream_video_flutter:
-    path: ../../stream-video-flutter/packages/stream_video_flutter
-  stream_video_push_notification:
-    path: ../../stream-video-flutter/packages/stream_video_push_notification
-
 flutter:
   uses-material-design: true
