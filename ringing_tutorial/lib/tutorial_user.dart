@@ -1,4 +1,4 @@
-import 'package:ringing_tutorial/env_consts.dart';
+import 'package:ringing_tutorial/app_keys.dart';
 import 'package:stream_video_flutter/stream_video_flutter.dart';
 
 class TutorialUser {

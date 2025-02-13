@@ -5,7 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:ringing_tutorial/app_initializer.dart';
 import 'package:ringing_tutorial/call_screen.dart';
-import 'package:ringing_tutorial/env_consts.dart';
+import 'package:ringing_tutorial/app_keys.dart';
 import 'package:ringing_tutorial/firebase_options.dart';
 import 'package:ringing_tutorial/login_screen.dart';
 import 'package:ringing_tutorial/tutorial_user.dart';

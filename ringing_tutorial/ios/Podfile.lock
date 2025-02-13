@@ -43,6 +43,8 @@ PODS:
   - flutter_callkit_incoming (0.0.1):
     - CryptoSwift
     - Flutter
+  - flutter_secure_storage (6.0.0):
+    - Flutter
   - GoogleDataTransport (10.1.0):
     - nanopb (~> 3.30910.0)
     - PromisesObjC (~> 2.4)
@@ -96,7 +98,7 @@ PODS:
   - stream_video_push_notification (0.0.1):
     - Flutter
     - flutter_callkit_incoming
-  - "stream_webrtc_flutter (0.12.5+2)":
+  - stream_webrtc_flutter (0.12.8):
     - Flutter
     - WebRTC-SDK (= 125.6422.06)
   - thermal (0.0.1):
@@ -111,6 +113,7 @@ DEPENDENCIES:
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - Flutter (from `Flutter`)
   - flutter_callkit_incoming (from `.symlinks/plugins/flutter_callkit_incoming/ios`)
+  - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - ios_platform_images (from `.symlinks/plugins/ios_platform_images/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
@@ -150,6 +153,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_callkit_incoming:
     :path: ".symlinks/plugins/flutter_callkit_incoming/ios"
+  flutter_secure_storage:
+    :path: ".symlinks/plugins/flutter_secure_storage/ios"
   ios_platform_images:
     :path: ".symlinks/plugins/ios_platform_images/ios"
   path_provider_foundation:
@@ -183,6 +188,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 00ece041b71ddb52a2862ffdee73fb6e9824bd0c
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_callkit_incoming: 417dd1b46541cdd5d855ad795ccbe97d1c18155e
+  flutter_secure_storage: d33dac7ae2ea08509be337e775f6b59f1ff45f12
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
   ios_platform_images: b961766688fe9ba740c6bd2be22302fa831491d3
@@ -194,7 +200,7 @@ SPEC CHECKSUMS:
   sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
   stream_video_flutter: 8151dae2f17aa7ee339c116f4b07456d44ab11c6
   stream_video_push_notification: 7c6235919cafed30d5a45f7b4801c6bb1596c9c4
-  stream_webrtc_flutter: 3b8136cd3148ab2055c462fbbad600f9005ccae4
+  stream_webrtc_flutter: 9944e820341615250b913ced2fedfa487e490c6b
   thermal: a9261044101ae8f532fa29cab4e8270b51b3f55c
   WebRTC-SDK: 79942c006ea64f6fb48d7da8a4786dfc820bc1db
 
