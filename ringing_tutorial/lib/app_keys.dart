@@ -1,4 +1,4 @@
-class EnvConsts {
+class AppKeys {
   static const String streamApiKey = '{REPLACE_WITH_YOUR_STREAM_API_KEY}';
   static const String iosPushProviderName =
       '{REPLACE_WITH_YOUR_APN_PROVIDER_NAME}';

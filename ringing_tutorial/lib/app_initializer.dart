@@ -38,7 +38,7 @@ class AppInitializer {
     );
 
     return StreamVideo(
-      EnvConsts.streamApiKey,
+      AppKeys.streamApiKey,
       user: tutorialUser.user,
       userToken: tutorialUser.token,
       options: const StreamVideoOptions(
@@ -48,10 +48,10 @@ class AppInitializer {
       pushNotificationManagerProvider:
           StreamVideoPushNotificationManager.create(
         iosPushProvider: const StreamVideoPushProvider.apn(
-          name: EnvConsts.iosPushProviderName,
+          name: AppKeys.iosPushProviderName,
         ),
         androidPushProvider: const StreamVideoPushProvider.firebase(
-          name: EnvConsts.androidPushProviderName,
+          name: AppKeys.androidPushProviderName,
         ),
         pushParams: const StreamVideoPushParams(
           appName: 'Ringing Tutorial',

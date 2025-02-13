@@ -23,7 +23,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     if (tutorialUser == null) return;
 
     final streamVideo = StreamVideo.create(
-      EnvConsts.streamApiKey,
+      AppKeys.streamApiKey,
       user: tutorialUser.user,
       userToken: tutorialUser.token,
       options: const StreamVideoOptions(
@@ -33,10 +33,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       pushNotificationManagerProvider:
           StreamVideoPushNotificationManager.create(
         iosPushProvider: const StreamVideoPushProvider.apn(
-          name: EnvConsts.iosPushProviderName,
+          name: AppKeys.iosPushProviderName,
         ),
         androidPushProvider: const StreamVideoPushProvider.firebase(
-          name: EnvConsts.androidPushProviderName,
+          name: AppKeys.androidPushProviderName,
         ),
         pushParams: const StreamVideoPushParams(
           appName: 'Ringing Tutorial',
