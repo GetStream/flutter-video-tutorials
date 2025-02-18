@@ -1,0 +1,88 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "audioroom_tutorial",
+            "cwd": "audioroom_tutorial",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "audioroom_tutorial (profile mode)",
+            "cwd": "audioroom_tutorial",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "audioroom_tutorial (release mode)",
+            "cwd": "audioroom_tutorial",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "livestreaming_tutorial",
+            "cwd": "livestreaming_tutorial",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "livestreaming_tutorial (profile mode)",
+            "cwd": "livestreaming_tutorial",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "livestreaming_tutorial (release mode)",
+            "cwd": "livestreaming_tutorial",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "video_calling_tutorial",
+            "cwd": "video_calling_tutorial",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "video_calling_tutorial (profile mode)",
+            "cwd": "video_calling_tutorial",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "video_calling_tutorial (release mode)",
+            "cwd": "video_calling_tutorial",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+        {
+            "name": "ringing_tutorial",
+            "cwd": "ringing_tutorial",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "ringing_tutorial (profile mode)",
+            "cwd": "ringing_tutorial",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "ringing_tutorial (release mode)",
+            "cwd": "ringing_tutorial",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
