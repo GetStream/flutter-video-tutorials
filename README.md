@@ -35,3 +35,11 @@ The underlying API is very flexible and allows you to build nearly any type of v
 
 The Flutter audio room tutorial shows you how to quickly build an Audio Room app leveraging Stream's Video API and the Stream Video Flutter components. 
 The underlying API is very flexible and allows you to build nearly any type of video experience.
+
+## Flutter Ringing Tutorial
+
+<img src="readme-assets/card-video-calling.png" alt="Ringing Header image" style="box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); border-radius: 1rem" />
+
+📚 [Ringing Tutorial](https://getstream.io/video/sdk/flutter/tutorial/ringing/)   |||   💻 [Ringing Repository](https://github.com/GetStream/flutter-video-tutorials/tree/main/ringing_tutorial)
+
+The Flutter Ringing tutorial provides a step-by-step guide to building an app with ringing functionality using Stream's Video API and Stream Video Flutter components.
