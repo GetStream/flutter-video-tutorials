@@ -3,7 +3,6 @@ PODS:
     - Flutter
   - connectivity_plus (0.0.1):
     - Flutter
-    - FlutterMacOS
   - CryptoSwift (1.8.4)
   - device_info_plus (0.0.1):
     - Flutter
@@ -79,6 +78,8 @@ PODS:
     - nanopb/encode (= 3.30910.0)
   - nanopb/decode (3.30910.0)
   - nanopb/encode (3.30910.0)
+  - package_info_plus (0.4.5):
+    - Flutter
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -91,23 +92,23 @@ PODS:
   - sqflite_darwin (0.0.4):
     - Flutter
     - FlutterMacOS
-  - stream_video_flutter (0.0.1):
+  - stream_video_flutter (0.9.1):
     - Flutter
     - ios_platform_images
     - stream_webrtc_flutter
-  - stream_video_push_notification (0.0.1):
+  - stream_video_push_notification (0.9.1):
     - Flutter
     - flutter_callkit_incoming
-  - stream_webrtc_flutter (0.12.8):
+  - stream_webrtc_flutter (1.0.3):
     - Flutter
-    - WebRTC-SDK (= 125.6422.06)
+    - StreamWebRTC (= 125.6422.065)
+  - StreamWebRTC (125.6422.065)
   - thermal (0.0.1):
     - Flutter
-  - WebRTC-SDK (125.6422.06)
 
 DEPENDENCIES:
   - battery_plus (from `.symlinks/plugins/battery_plus/ios`)
-  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/darwin`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
@@ -115,6 +116,7 @@ DEPENDENCIES:
   - flutter_callkit_incoming (from `.symlinks/plugins/flutter_callkit_incoming/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - ios_platform_images (from `.symlinks/plugins/ios_platform_images/ios`)
+  - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
@@ -136,13 +138,13 @@ SPEC REPOS:
     - GoogleUtilities
     - nanopb
     - PromisesObjC
-    - WebRTC-SDK
+    - StreamWebRTC
 
 EXTERNAL SOURCES:
   battery_plus:
     :path: ".symlinks/plugins/battery_plus/ios"
   connectivity_plus:
-    :path: ".symlinks/plugins/connectivity_plus/darwin"
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
   firebase_core:
@@ -157,6 +159,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_secure_storage/ios"
   ios_platform_images:
     :path: ".symlinks/plugins/ios_platform_images/ios"
+  package_info_plus:
+    :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   permission_handler_apple:
@@ -176,7 +180,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   battery_plus: 34f72fa2afeeea83bbae306c72a25828d3ec727a
-  connectivity_plus: 18382e7311ba19efcaee94442b23b32507b20695
+  connectivity_plus: 2a701ffec2c0ae28a48cf7540e279787e77c447d
   CryptoSwift: e64e11850ede528a02a0f3e768cec8e9d92ecb90
   device_info_plus: 97af1d7e84681a90d0693e63169a5d50e0839a0d
   Firebase: a64bf6a8546e6eab54f1c715cd6151f39d2329f4
@@ -193,16 +197,17 @@ SPEC CHECKSUMS:
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
   ios_platform_images: b961766688fe9ba740c6bd2be22302fa831491d3
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
+  package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
-  stream_video_flutter: 8151dae2f17aa7ee339c116f4b07456d44ab11c6
-  stream_video_push_notification: 7c6235919cafed30d5a45f7b4801c6bb1596c9c4
-  stream_webrtc_flutter: 9944e820341615250b913ced2fedfa487e490c6b
+  stream_video_flutter: 255511a090364f98488e765d6643ef8955251b5e
+  stream_video_push_notification: 64b78f69a88f943ee22308d7ce2d28afe6bd6dbd
+  stream_webrtc_flutter: 0baf5701f25e185736e9b41e69939141ef7de3f4
+  StreamWebRTC: f76cc9fe247008bd50f1f5160b37e4b7548c8153
   thermal: a9261044101ae8f532fa29cab4e8270b51b3f55c
-  WebRTC-SDK: 79942c006ea64f6fb48d7da8a4786dfc820bc1db
 
 PODFILE CHECKSUM: 1959d098c91d8a792531a723c4a9d7e9f6a01e38
 
