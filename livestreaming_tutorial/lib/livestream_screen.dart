@@ -1,13 +1,12 @@
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:stream_video_flutter/stream_video_flutter.dart';
 
 class LiveStreamScreen extends StatefulWidget {
-  const LiveStreamScreen({
-    super.key,
-    required this.livestreamCall,
-  });
+  const LiveStreamScreen({super.key, required this.livestreamCall});
 
   final Call livestreamCall;
 
@@ -16,11 +15,13 @@ class LiveStreamScreen extends StatefulWidget {
 }
 
 class _LiveStreamScreenState extends State<LiveStreamScreen> {
+  late StreamSubscription<CallState> _callStateSubscription;
+
   @override
   void initState() {
     super.initState();
 
-    widget.livestreamCall.state.valueStream
+    _callStateSubscription = widget.livestreamCall.state.valueStream
         .distinct((previous, current) => previous.status != current.status)
         .listen((event) {
       if (event.status is CallStatusDisconnected) {
@@ -30,12 +31,20 @@ class _LiveStreamScreenState extends State<LiveStreamScreen> {
   }
 
   @override
+  void dispose() {
+    _callStateSubscription.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return StreamBuilder<CallState>(
+    return StreamBuilder(
+      // We use distinct to prevent unnecessary rebuilds of the UI
       stream: widget.livestreamCall.state.valueStream.distinct(
-          (previous, current) =>
-              previous.isBackstage == current.isBackstage &&
-              previous.endedAt == current.endedAt),
+        (previous, current) =>
+            previous.isBackstage == current.isBackstage &&
+            previous.endedAt == current.endedAt,
+      ),
       initialData: widget.livestreamCall.state.value,
       builder: (context, snapshot) {
         final callState = snapshot.data!;
@@ -44,9 +53,7 @@ class _LiveStreamScreenState extends State<LiveStreamScreen> {
           body: Builder(
             builder: (context) {
               if (!snapshot.hasData) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
+                return const Center(child: CircularProgressIndicator());
               } else {
                 if (callState.isBackstage) {
                   return BackstageWidget(
@@ -99,7 +106,7 @@ class BackstageWidget extends StatelessWidget {
         children: [
           Text(
             startsAt != null
-                ? 'Livestream starting at ${DateFormat('HH:mm').format(startsAt)}'
+                ? 'Livestream starting at ${DateFormat('HH:mm').format(startsAt.toLocal())}'
                 : 'Livestream starting soon',
             style: Theme.of(context).textTheme.titleLarge,
           ),
@@ -110,6 +117,13 @@ class BackstageWidget extends StatelessWidget {
               call.goLive();
             },
             child: const Text('Go Live'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              call.leave();
+              Navigator.pop(context);
+            },
+            child: const Text('Leave Livestream'),
           ),
         ],
       ),
@@ -177,7 +191,7 @@ class LivestreamEndedWidget extends StatelessWidget {
 
                 return const SizedBox.shrink();
               },
-            )
+            ),
           ],
         ),
       ),
@@ -205,9 +219,7 @@ class LivestreamLiveWidget extends StatelessWidget {
         );
 
         if (participant == null) {
-          return const Center(
-            child: Text("The host's video is not available"),
-          );
+          return const Center(child: Text("The host's video is not available"));
         }
 
         return StreamCallContent(
@@ -218,8 +230,7 @@ class LivestreamLiveWidget extends StatelessWidget {
             showBackButton: false,
             title: Text('Viewers: ${callState.callParticipants.length}'),
             onLeaveCallTap: () {
-              call.end();
-              Navigator.pop(context);
+              call.stopLive();
             },
           ),
           callParticipantsBuilder: (context, call, state) {

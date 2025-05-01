@@ -4,15 +4,16 @@ import 'package:stream_video/stream_video.dart';
 import 'package:stream_video_flutter/stream_video_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    super.key,
-  });
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String? createLoadingText;
+  String? viewLoadingText;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,12 +23,28 @@ class _HomeScreenState extends State<HomeScreen> {
           spacing: 16,
           children: [
             ElevatedButton(
-              onPressed: () => _createLivestream(),
-              child: const Text('Create a Livestream'),
+              onPressed: createLoadingText == null
+                  ? () async {
+                      setState(
+                        () => createLoadingText = 'Creating Livestream...',
+                      );
+                      await _createLivestream();
+                      setState(() => createLoadingText = null);
+                    }
+                  : null,
+              child: Text(createLoadingText ?? 'Create a Livestream'),
             ),
             ElevatedButton(
-              onPressed: () => _viewLivestream(),
-              child: const Text('View a Livestream'),
+              onPressed: viewLoadingText == null
+                  ? () {
+                      setState(
+                        () => viewLoadingText = 'Joining Livestream...',
+                      );
+                      _viewLivestream();
+                      setState(() => viewLoadingText = null);
+                    }
+                  : null,
+              child: Text(viewLoadingText ?? 'View a Livestream'),
             ),
           ],
         ),
@@ -52,36 +69,40 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     );
 
+    if (result.isFailure) {
+      debugPrint('Not able to create a call.');
+      return;
+    }
+
     // Configure the call to allow users to join before it starts by setting a future start time
     // and specifying how many seconds in advance they can join via `joinAheadTimeSeconds`
-    if (result.isSuccess) {
-      final updateResult = await call.update(
-        startsAt: DateTime.now().toUtc().add(const Duration(seconds: 120)),
-        backstage: const StreamBackstageSettings(
-          enabled: true,
-          joinAheadTimeSeconds: 120,
-        ),
-      );
+    final updateResult = await call.update(
+      startsAt: DateTime.now().toUtc().add(const Duration(seconds: 120)),
+      backstage: const StreamBackstageSettings(
+        enabled: true,
+        joinAheadTimeSeconds: 120,
+      ),
+    );
+
+    if (updateResult.isFailure) {
+      debugPrint('Not able to update the call.');
+      return;
     }
 
-    if (result.isSuccess) {
-      // Set some default behaviour for how our devices should be configured once we join a call
-      final connectOptions = CallConnectOptions(
-        camera: TrackOption.enabled(),
-        microphone: TrackOption.enabled(),
-      );
+    // Set some default behaviour for how our devices should be configured once we join a call
+    final connectOptions = CallConnectOptions(
+      camera: TrackOption.enabled(),
+      microphone: TrackOption.enabled(),
+    );
 
-      // Our local app user can join and receive events
-      await call.join(connectOptions: connectOptions);
+    // Our local app user can join and receive events
+    await call.join(connectOptions: connectOptions);
 
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => LiveStreamScreen(livestreamCall: call),
-        ),
-      );
-    } else {
-      debugPrint('Not able to create a call.');
-    }
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => LiveStreamScreen(livestreamCall: call),
+      ),
+    );
   }
 
   Future<void> _viewLivestream() async {
