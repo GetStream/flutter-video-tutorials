@@ -70,7 +70,6 @@ class _LiveStreamScreenState extends State<LiveStreamScreen> {
                 }
 
                 return LivestreamLiveWidget(
-                  callState: callState,
                   call: widget.livestreamCall,
                 );
               }
@@ -131,7 +130,7 @@ class BackstageWidget extends StatelessWidget {
   }
 }
 
-class LivestreamEndedWidget extends StatelessWidget {
+class LivestreamEndedWidget extends StatefulWidget {
   const LivestreamEndedWidget({
     super.key,
     required this.callState,
@@ -142,6 +141,19 @@ class LivestreamEndedWidget extends StatelessWidget {
   final Call call;
 
   @override
+  State<LivestreamEndedWidget> createState() => _LivestreamEndedWidgetState();
+}
+
+class _LivestreamEndedWidgetState extends State<LivestreamEndedWidget> {
+  late Future<Result<List<CallRecording>>> _recordingsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _recordingsFuture = widget.call.listRecordings();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -149,7 +161,7 @@ class LivestreamEndedWidget extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            call.leave();
+            widget.call.leave();
             Navigator.pop(context);
           },
         ),
@@ -160,7 +172,7 @@ class LivestreamEndedWidget extends StatelessWidget {
           children: [
             const Text('Livestream has ended'),
             FutureBuilder(
-              future: call.listRecordings(),
+              future: _recordingsFuture,
               builder: (context, snapshot) {
                 if (snapshot.hasData && snapshot.data!.isSuccess) {
                   final recordings = snapshot.requireData.getDataOrNull();
@@ -200,43 +212,51 @@ class LivestreamEndedWidget extends StatelessWidget {
 }
 
 class LivestreamLiveWidget extends StatelessWidget {
-  const LivestreamLiveWidget({
-    super.key,
-    required this.callState,
-    required this.call,
-  });
+  const LivestreamLiveWidget({super.key, required this.call});
 
-  final CallState callState;
   final Call call;
 
   @override
   Widget build(BuildContext context) {
-    return StreamCallContainer(
-      call: call,
-      callContentBuilder: (context, call, state) {
-        var participant = state.callParticipants.firstWhereOrNull(
-          (e) => e.roles.contains('host'),
-        );
+    // When the livestream is live we have to listen to all call state changes.
+    return StreamBuilder(
+      stream: call.state.valueStream,
+      initialData: call.state.value,
+      builder: (context, snapshot) {
+        final callState = snapshot.data!;
 
-        if (participant == null) {
-          return const Center(child: Text("The host's video is not available"));
-        }
-
-        return StreamCallContent(
+        return StreamCallContainer(
           call: call,
-          callState: callState,
-          callAppBarBuilder: (context, call, callState) => CallAppBar(
-            call: call,
-            showBackButton: false,
-            title: Text('Viewers: ${callState.callParticipants.length}'),
-            onLeaveCallTap: () {
-              call.stopLive();
-            },
-          ),
-          callParticipantsBuilder: (context, call, state) {
-            return StreamCallParticipants(
+          callContentBuilder: (context, call, state) {
+            var participant = state.callParticipants.firstWhereOrNull(
+              (e) => e.roles.contains('host'),
+            );
+
+            if (participant == null) {
+              return const Center(
+                child: Text("The host's video is not available"),
+              );
+            }
+
+            return StreamCallContent(
               call: call,
-              participants: [participant],
+              callState: callState,
+              callAppBarBuilder: (context, call, callState) => CallAppBar(
+                call: call,
+                showBackButton: false,
+                title: Text(
+                  'Viewers: ${callState.callParticipants.length}',
+                ),
+                onLeaveCallTap: () {
+                  call.stopLive();
+                },
+              ),
+              callParticipantsBuilder: (context, call, state) {
+                return StreamCallParticipants(
+                  call: call,
+                  participants: [participant],
+                );
+              },
             );
           },
         );
