@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:livestreaming_tutorial/home_screen.dart';
 import 'package:stream_video_flutter/stream_video_flutter.dart';
-
-import 'home_screen.dart';
 
 Future<void> main() async {
   // Ensure Flutter is able to communicate with Plugins
@@ -21,13 +20,6 @@ Future<void> main() async {
     ),
     userToken: 'REPLACE_WITH_TOKEN',
   );
-
-  // For connecting anonymous users
-  // StreamVideo(
-  //   'REPLACE_WITH_API_KEY',
-  //   user: User.anonymous(),
-  //   userToken: 'REPLACE_WITH_TOKEN',
-  // );
 
   runApp(
     const MaterialApp(
