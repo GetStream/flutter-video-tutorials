@@ -31,19 +31,37 @@ class _HomeScreenState extends State<HomeScreen> {
       id: 'REPLACE_WITH_CALL_ID',
     );
 
-    final result = await call.getOrCreate(); // Call object is created
+    // Create the call and set the current user as a host
+    final result = await call.getOrCreate(
+      members: [
+        MemberRequest(
+          userId: StreamVideo.instance.currentUser.id,
+          role: 'host',
+        ),
+      ],
+    );
 
     if (result.isSuccess) {
-      await call.join(); // Our local app user can join and receive events
-      await call.goLive(); // Allow others to see and join the call
-
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => AudioRoomScreen(
-            audioRoomCall: call,
-          ),
-        ),
+      // Set some default behaviour for how our devices should be configured once we join a call.
+      // Note that the camera will be disabled by default because of the `audio_room` call type configuration.
+      final connectOptions = CallConnectOptions(
+        microphone: TrackOption.enabled(),
       );
+
+      await call.join(connectOptions: connectOptions);
+
+      // Allow others to see and join the call (exit backstage mode)
+      await call.goLive();
+
+      if (mounted) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => AudioRoomScreen(
+              audioRoomCall: call,
+            ),
+          ),
+        );
+      }
     } else {
       debugPrint('Not able to create a call.');
     }

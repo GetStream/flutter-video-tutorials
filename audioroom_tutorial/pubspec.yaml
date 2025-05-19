@@ -31,9 +31,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   flutter:
     sdk: flutter
-  stream_video: ^0.9.1
-  stream_video_flutter: ^0.9.1
-  stream_video_push_notification: ^0.9.1
+  stream_video: ^0.9.2
+  stream_video_flutter: ^0.9.2
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to
