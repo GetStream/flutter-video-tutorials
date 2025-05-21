@@ -146,7 +146,7 @@ packages:
     source: hosted
     version: "0.3.0+1"
   cupertino_icons:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
       name: cupertino_icons
       sha256: ba631d1c7f7bef6b729a622b7b752645a2d076dba9976925b8f25725a30e1ee6
@@ -345,12 +345,12 @@ packages:
     dependency: transitive
     description:
       name: internet_connection_checker_plus
-      sha256: eb3a6f03e7b1641589f580993d29aee0b3c4920fc618f7556de359fedb87b02e
+      sha256: "5aea4a1ee0fcca736980a7d04d96fe8c0b53dea330690053305a5c5392230112"
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.1"
+    version: "2.7.2"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
@@ -545,18 +545,18 @@ packages:
     dependency: transitive
     description:
       name: permission_handler
-      sha256: "59adad729136f01ea9e35a48f5d1395e25cba6cea552249ddbe9cf950f5d7849"
+      sha256: "2d070d8684b68efb580a5997eb62f675e8a885ef0be6e754fb9ef489c177470f"
       url: "https://pub.dev"
     source: hosted
-    version: "11.4.0"
+    version: "12.0.0+1"
   permission_handler_android:
     dependency: transitive
     description:
       name: permission_handler_android
-      sha256: d3971dcdd76182a0c198c096b5db2f0884b0d4196723d21a866fc4cdea057ebc
+      sha256: "1e3bc410ca1bf84662104b100eb126e066cb55791b7451307f9708d4007350e6"
       url: "https://pub.dev"
     source: hosted
-    version: "12.1.0"
+    version: "13.0.1"
   permission_handler_apple:
     dependency: transitive
     description:
@@ -805,38 +805,27 @@ packages:
   stream_video:
     dependency: "direct main"
     description:
-      path: "../../stream-video-flutter/packages/stream_video"
-      relative: true
-    source: path
-    version: "0.9.1"
+      name: stream_video
+      sha256: "2339b5aecad6bbeb8d2e15e4899764336e15db9ec60b6591a62e72e9ad538a79"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.2"
   stream_video_flutter:
     dependency: "direct main"
     description:
-      path: "../../stream-video-flutter/packages/stream_video_flutter"
-      relative: true
-    source: path
-    version: "0.9.1"
-  stream_video_noise_cancellation:
-    dependency: "direct overridden"
-    description:
-      path: "../../stream-video-flutter/packages/stream_video_noise_cancellation"
-      relative: true
-    source: path
-    version: "0.9.1"
+      name: stream_video_flutter
+      sha256: ef6192c4d72b664a178908299bb49ffca49bd779e8c3658cc20690f57a692384
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.2"
   stream_video_push_notification:
     dependency: "direct main"
     description:
-      path: "../../stream-video-flutter/packages/stream_video_push_notification"
-      relative: true
-    source: path
-    version: "0.9.1"
-  stream_video_screen_sharing:
-    dependency: "direct overridden"
-    description:
-      path: "../../stream-video-flutter/packages/stream_video_screen_sharing"
-      relative: true
-    source: path
-    version: "0.9.1"
+      name: stream_video_push_notification
+      sha256: e8129be66e0b7fbe8b5ad12a210c5c401b50c50aa5485aa6d809bbccf7b7fa9e
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.2"
   stream_webrtc_flutter:
     dependency: transitive
     description:
@@ -1023,4 +1012,4 @@ packages:
     version: "6.5.0"
 sdks:
   dart: ">=3.7.0 <4.0.0"
-  flutter: ">=3.27.0"
+  flutter: ">=3.27.4"
