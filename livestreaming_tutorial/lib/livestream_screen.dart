@@ -213,10 +213,11 @@ class LivestreamLiveWidget extends StatelessWidget {
       callContentWidgetBuilder: (context, call) {
         return PartialCallStateBuilder(
           call: call,
-          selector: (state) =>
-              state.callParticipants.any((e) => e.roles.contains('host')),
-          builder: (context, hasHost) {
-            if (!hasHost) {
+          selector: (state) => state.callParticipants
+              .where((e) => e.roles.contains('host'))
+              .toList(),
+          builder: (context, hosts) {
+            if (hosts.isEmpty) {
               return const Center(
                 child: Text("The host's video is not available"),
               );
@@ -239,7 +240,10 @@ class LivestreamLiveWidget extends StatelessWidget {
                 },
               ),
               callParticipantsWidgetBuilder: (context, call) {
-                return StreamCallParticipants(call: call);
+                return StreamCallParticipants(
+                  call: call,
+                  participants: hosts,
+                );
               },
             );
           },
