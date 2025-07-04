@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:stream_video_flutter/stream_video_flutter.dart';
@@ -38,41 +37,29 @@ class _LiveStreamScreenState extends State<LiveStreamScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      // We use distinct to prevent unnecessary rebuilds of the UI
-      stream: widget.livestreamCall.state.valueStream.distinct(
-        (previous, current) =>
-            previous.isBackstage == current.isBackstage &&
-            previous.endedAt == current.endedAt,
-      ),
-      initialData: widget.livestreamCall.state.value,
-      builder: (context, snapshot) {
-        final callState = snapshot.data!;
-
+    return PartialCallStateBuilder(
+      call: widget.livestreamCall,
+      selector: (state) =>
+          (isBackstage: state.isBackstage, endedAt: state.endedAt),
+      builder: (context, callState) {
         return Scaffold(
           body: Builder(
             builder: (context) {
-              if (!snapshot.hasData) {
-                return const Center(child: CircularProgressIndicator());
-              } else {
-                if (callState.isBackstage) {
-                  return BackstageWidget(
-                    callState: callState,
-                    call: widget.livestreamCall,
-                  );
-                }
-
-                if (callState.endedAt != null) {
-                  return LivestreamEndedWidget(
-                    callState: callState,
-                    call: widget.livestreamCall,
-                  );
-                }
-
-                return LivestreamLiveWidget(
+              if (callState.isBackstage) {
+                return BackstageWidget(
                   call: widget.livestreamCall,
                 );
               }
+
+              if (callState.endedAt != null) {
+                return LivestreamEndedWidget(
+                  call: widget.livestreamCall,
+                );
+              }
+
+              return LivestreamLiveWidget(
+                call: widget.livestreamCall,
+              );
             },
           ),
         );
@@ -84,48 +71,53 @@ class _LiveStreamScreenState extends State<LiveStreamScreen> {
 class BackstageWidget extends StatelessWidget {
   const BackstageWidget({
     super.key,
-    required this.callState,
     required this.call,
   });
 
-  final CallState callState;
   final Call call;
 
   @override
   Widget build(BuildContext context) {
-    final startsAt = callState.startsAt;
-    final waitingParticipants = callState.callParticipants
-        .where((p) => !p.roles.contains('host'))
-        .toList();
-
-    return Center(
-      child: Column(
-        spacing: 8,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            startsAt != null
-                ? 'Livestream starting at ${DateFormat('HH:mm').format(startsAt.toLocal())}'
-                : 'Livestream starting soon',
-            style: Theme.of(context).textTheme.titleLarge,
+    return PartialCallStateBuilder(
+      call: call,
+      selector: (state) =>
+          state.callParticipants.where((p) => !p.roles.contains('host')).length,
+      builder: (context, waitingParticipantsCount) {
+        return Center(
+          child: Column(
+            spacing: 8,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              PartialCallStateBuilder(
+                  call: call,
+                  selector: (state) => state.startsAt,
+                  builder: (context, startsAt) {
+                    return Text(
+                      startsAt != null
+                          ? 'Livestream starting at ${DateFormat('HH:mm').format(startsAt.toLocal())}'
+                          : 'Livestream starting soon',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    );
+                  }),
+              if (waitingParticipantsCount > 0)
+                Text('$waitingParticipantsCount participants waiting'),
+              ElevatedButton(
+                onPressed: () {
+                  call.goLive();
+                },
+                child: const Text('Go Live'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  call.leave();
+                  Navigator.pop(context);
+                },
+                child: const Text('Leave Livestream'),
+              ),
+            ],
           ),
-          if (waitingParticipants.isNotEmpty)
-            Text('${waitingParticipants.length} participants waiting'),
-          ElevatedButton(
-            onPressed: () {
-              call.goLive();
-            },
-            child: const Text('Go Live'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              call.leave();
-              Navigator.pop(context);
-            },
-            child: const Text('Leave Livestream'),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -133,11 +125,9 @@ class BackstageWidget extends StatelessWidget {
 class LivestreamEndedWidget extends StatefulWidget {
   const LivestreamEndedWidget({
     super.key,
-    required this.callState,
     required this.call,
   });
 
-  final CallState callState;
   final Call call;
 
   @override
@@ -218,21 +208,16 @@ class LivestreamLiveWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // When the livestream is live we have to listen to all call state changes.
-    return StreamBuilder(
-      stream: call.state.valueStream,
-      initialData: call.state.value,
-      builder: (context, snapshot) {
-        final callState = snapshot.data!;
-
-        return StreamCallContainer(
+    return StreamCallContainer(
+      call: call,
+      callContentWidgetBuilder: (context, call) {
+        return PartialCallStateBuilder(
           call: call,
-          callContentBuilder: (context, call, state) {
-            var participant = state.callParticipants.firstWhereOrNull(
-              (e) => e.roles.contains('host'),
-            );
-
-            if (participant == null) {
+          selector: (state) => state.callParticipants
+              .where((e) => e.roles.contains('host'))
+              .toList(),
+          builder: (context, hosts) {
+            if (hosts.isEmpty) {
               return const Center(
                 child: Text("The host's video is not available"),
               );
@@ -240,21 +225,24 @@ class LivestreamLiveWidget extends StatelessWidget {
 
             return StreamCallContent(
               call: call,
-              callState: callState,
-              callAppBarBuilder: (context, call, callState) => CallAppBar(
+              callAppBarWidgetBuilder: (context, call) => CallAppBar(
                 call: call,
                 showBackButton: false,
-                title: Text(
-                  'Viewers: ${callState.callParticipants.length}',
+                title: PartialCallStateBuilder(
+                  call: call,
+                  selector: (state) => state.callParticipants.length,
+                  builder: (context, count) => Text(
+                    'Viewers: $count',
+                  ),
                 ),
                 onLeaveCallTap: () {
                   call.stopLive();
                 },
               ),
-              callParticipantsBuilder: (context, call, state) {
+              callParticipantsWidgetBuilder: (context, call) {
                 return StreamCallParticipants(
                   call: call,
-                  participants: [participant],
+                  participants: hosts,
                 );
               },
             );

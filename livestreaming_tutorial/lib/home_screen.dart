@@ -122,7 +122,11 @@ class _HomeScreenState extends State<HomeScreen> {
       );
 
       // Our local app user can join and receive events
-      await call.join(connectOptions: connectOptions);
+      final joinResult = await call.join(connectOptions: connectOptions);
+      if (joinResult case Failure failure) {
+        debugPrint('Not able to join the call: ${failure.error}');
+        return;
+      }
 
       Navigator.of(context).push(
         MaterialPageRoute(
