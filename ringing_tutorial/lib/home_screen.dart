@@ -239,7 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     child: Text(user.user.name ?? ''),
                   );
-                }).toList(),
+                }),
               ],
             ),
             const SizedBox(height: 16),
