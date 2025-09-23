@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:stream_video_flutter/stream_video_flutter.dart';
 
@@ -12,12 +14,39 @@ class AudioRoomActions extends StatefulWidget {
 
 class _AudioRoomActionsState extends State<AudioRoomActions> {
   var _microphoneEnabled = false;
+  var _waitingForPermission = false;
+
+  StreamSubscription? _callEventsSubscription;
 
   @override
   void initState() {
     super.initState();
     _microphoneEnabled =
         widget.audioRoomCall.connectOptions.microphone.isEnabled;
+
+    _callEventsSubscription =
+        widget.audioRoomCall.callEvents.on<StreamCallPermissionsUpdatedEvent>((
+      event,
+    ) {
+      if (event.user.id != StreamVideo.instance.currentUser.id) {
+        return;
+      }
+
+      if (_waitingForPermission &&
+          event.ownCapabilities.contains(CallPermission.sendAudio)) {
+        setState(() {
+          _waitingForPermission = false;
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Permission to speak granted. You can now enable your microphone.',
+            ),
+          ),
+        );
+      }
+    });
   }
 
   @override
@@ -36,28 +65,29 @@ class _AudioRoomActionsState extends State<AudioRoomActions> {
             mainAxisAlignment: MainAxisAlignment.end,
             spacing: 20,
             children: [
-              FloatingActionButton.extended(
-                heroTag: 'go-live',
-                label: callState.isBackstage
-                    ? const Text('Go Live')
-                    : const Text('Stop Live'),
-                icon: callState.isBackstage
-                    ? const Icon(
-                        Icons.play_arrow,
-                        color: Colors.green,
-                      )
-                    : const Icon(
-                        Icons.stop,
-                        color: Colors.red,
-                      ),
-                onPressed: () {
-                  if (callState.isBackstage) {
-                    widget.audioRoomCall.goLive();
-                  } else {
-                    widget.audioRoomCall.stopLive();
-                  }
-                },
-              ),
+              if (callState.createdByMe)
+                FloatingActionButton.extended(
+                  heroTag: 'go-live',
+                  label: callState.isBackstage
+                      ? const Text('Go Live')
+                      : const Text('Stop Live'),
+                  icon: callState.isBackstage
+                      ? const Icon(
+                          Icons.play_arrow,
+                          color: Colors.green,
+                        )
+                      : const Icon(
+                          Icons.stop,
+                          color: Colors.red,
+                        ),
+                  onPressed: () {
+                    if (callState.isBackstage) {
+                      widget.audioRoomCall.goLive();
+                    } else {
+                      widget.audioRoomCall.stopLive();
+                    }
+                  },
+                ),
               FloatingActionButton(
                 heroTag: 'microphone',
                 child: _microphoneEnabled
@@ -70,16 +100,28 @@ class _AudioRoomActionsState extends State<AudioRoomActions> {
                       _microphoneEnabled = false;
                     });
                   } else {
-                    if (!widget.audioRoomCall
-                        .hasPermission(CallPermission.sendAudio)) {
+                    if (!widget.audioRoomCall.hasPermission(
+                      CallPermission.sendAudio,
+                    )) {
                       widget.audioRoomCall.requestPermissions(
                         [CallPermission.sendAudio],
                       );
+
+                      setState(() {
+                        _waitingForPermission = true;
+                      });
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Permission to speak requested'),
+                        ),
+                      );
+                    } else {
+                      widget.audioRoomCall.setMicrophoneEnabled(enabled: true);
+                      setState(() {
+                        _microphoneEnabled = true;
+                      });
                     }
-                    widget.audioRoomCall.setMicrophoneEnabled(enabled: true);
-                    setState(() {
-                      _microphoneEnabled = true;
-                    });
                   }
                 },
               ),

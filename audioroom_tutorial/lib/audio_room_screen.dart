@@ -81,14 +81,21 @@ class _AudioRoomScreenState extends State<AudioRoomScreen> {
               );
             },
           ),
-          Positioned(
-            bottom: 120,
-            left: 0,
-            right: 0,
-            child: PermissionRequests(
-              audioRoomCall: widget.audioRoomCall,
+          if (widget.audioRoomCall.state.value.createdByMe)
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: SafeArea(
+                top: false,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 80),
+                  child: PermissionRequests(
+                    audioRoomCall: widget.audioRoomCall,
+                  ),
+                ),
+              ),
             ),
-          ),
         ],
       ),
     );

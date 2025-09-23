@@ -25,51 +25,75 @@ class _PermissionRequestsState extends State<PermissionRequests> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ..._permissionRequests.map(
-          (request) {
-            return Container(
-              padding: const EdgeInsets.all(8),
-              color: Colors.white,
-              child: Row(
-                children: [
-                  Text(
-                      '${request.user.name} requests to ${request.permissions}'),
-                  const Spacer(),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.check,
-                      color: Colors.green,
-                    ),
-                    onPressed: () async {
-                      await widget.audioRoomCall.grantPermissions(
-                        userId: request.user.id,
-                        permissions: request.permissions.toList(),
-                      );
+    if (_permissionRequests.isEmpty) {
+      return const SizedBox.shrink();
+    }
 
-                      setState(() {
-                        _permissionRequests.remove(request);
-                      });
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.close,
-                      color: Colors.red,
-                    ),
-                    onPressed: () async {
-                      setState(() {
-                        _permissionRequests.remove(request);
-                      });
-                    },
-                  ),
-                ],
-              ),
-            );
-          },
+    final request = _permissionRequests.first;
+    final displayName =
+        request.user.name.isNotEmpty ? request.user.name : request.user.id;
+    final permissions = request.permissions.join(', ');
+
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Card(
+        elevation: 6,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
         ),
-      ],
+        child: Column(
+          children: [
+            ListTile(
+              dense: true,
+              leading: CircleAvatar(
+                radius: 18,
+                child: Text(
+                  displayName.isNotEmpty ? displayName[0].toUpperCase() : '?',
+                ),
+              ),
+              title: Text('$displayName requests'),
+              subtitle: Text(permissions),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _permissionRequests.removeAt(0);
+                        });
+                      },
+                      child: const Text(
+                        'Deny',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await widget.audioRoomCall.grantPermissions(
+                          userId: request.user.id,
+                          permissions: request.permissions.toList(),
+                        );
+                        if (mounted) {
+                          setState(() {
+                            _permissionRequests.removeAt(0);
+                          });
+                        }
+                      },
+                      child: const Text('Allow'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
