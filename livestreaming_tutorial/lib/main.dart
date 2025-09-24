@@ -2,13 +2,7 @@
 /// Sample app for the Stream Livestreaming tutorial.
 ///
 /// This project is a minimal example used in the tutorial to demonstrate
-/// basic setup and usage. To run it locally, replace the placeholders in
-/// `main()` with your own credentials:
-/// - API key
-/// - User ID and token
-///
-/// You can obtain demo credentials from the tutorial page:
-/// https://getstream.io/video/sdk/flutter/tutorial/livestreaming/
+/// basic setup and usage. You can test it with demo credentials or replace them with your own
 ///
 /// After updating the values below, run the app on a device or emulator.
 import 'package:flutter/material.dart';
@@ -19,19 +13,20 @@ Future<void> main() async {
   // Ensure Flutter is able to communicate with Plugins
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Replace the placeholders below with your API key, user ID, and user token.
-  // Get demo credentials at: https://getstream.io/video/sdk/flutter/tutorial/livestreaming/
-  // Initialize Stream video and set the API key for our app.
+  /// Replace the values below with your own Stream API keys and sample user data if you want to test your Stream app.
+  /// For development, you can generate user tokens with our online tool: https://getstream.io/chat/docs/flutter-dart/tokens_and_authentication/#manually-generating-tokens
+  /// For production apps, generate tokens on your server rather than in the client.
   StreamVideo(
-    'REPLACE_WITH_API_KEY',
+    'mmhfdzb5evj2',
     user: const User(
       info: UserInfo(
-        name: 'REPLACE_WITH_USER_NAME',
-        id: 'REPLACE_WITH_USER_ID',
+        name: 'Alice Johnson',
+        id: 'alice_johnson',
         role: 'admin',
       ),
     ),
-    userToken: 'REPLACE_WITH_TOKEN',
+    userToken:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYWxpY2Vfam9obnNvbiJ9.v6-yXWgbLyykj9yt_ophmaC5FCGAG9ic6p02V09CmKQ',
   );
 
   runApp(
