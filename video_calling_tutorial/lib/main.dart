@@ -5,16 +5,18 @@ import 'package:video_calling_tutorial/call_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Right after creation client connects to the backend and authenticates the user.
-  // You can set `options: StreamVideoOptions(autoConnect: false)` if you want to disable auto-connect.
+  /// Replace the values below with your own Stream API keys and sample user data if you want to test your Stream app.
+  /// For development, you can generate user tokens with our online tool: https://getstream.io/chat/docs/flutter-dart/tokens_and_authentication/#manually-generating-tokens
+  /// For production apps, generate tokens on your server rather than in the client.
   final client = StreamVideo(
-    'REPLACE_WITH_API_KEY',
+    'mmhfdzb5evj2',
     user: User.regular(
-      userId: 'REPLACE_WITH_USER_ID',
+      userId: 'alice_johnson',
       role: 'admin',
-      name: 'John Doe',
+      name: 'Alice Johnson',
     ),
-    userToken: 'REPLACE_WITH_TOKEN',
+    userToken:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYWxpY2Vfam9obnNvbiJ9.v6-yXWgbLyykj9yt_ophmaC5FCGAG9ic6p02V09CmKQ',
   );
 
   runApp(const MyApp());
