@@ -6,8 +6,6 @@ PODS:
   - device_info_plus (0.0.1):
     - Flutter
   - Flutter (1.0.0)
-  - ios_platform_images (0.0.1):
-    - Flutter
   - package_info_plus (0.4.5):
     - Flutter
   - path_provider_foundation (0.0.1):
@@ -18,14 +16,13 @@ PODS:
   - sqflite_darwin (0.0.4):
     - Flutter
     - FlutterMacOS
-  - stream_video_flutter (0.9.1):
+  - stream_video_flutter (0.9.6):
     - Flutter
-    - ios_platform_images
     - stream_webrtc_flutter
-  - stream_webrtc_flutter (1.0.3):
+  - stream_webrtc_flutter (1.0.11):
     - Flutter
-    - StreamWebRTC (= 125.6422.065)
-  - StreamWebRTC (125.6422.065)
+    - StreamWebRTC (= 125.6422.070)
+  - StreamWebRTC (125.6422.070)
   - thermal (0.0.1):
     - Flutter
 
@@ -34,7 +31,6 @@ DEPENDENCIES:
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - Flutter (from `Flutter`)
-  - ios_platform_images (from `.symlinks/plugins/ios_platform_images/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
@@ -56,8 +52,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/device_info_plus/ios"
   Flutter:
     :path: Flutter
-  ios_platform_images:
-    :path: ".symlinks/plugins/ios_platform_images/ios"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_foundation:
@@ -77,15 +71,14 @@ SPEC CHECKSUMS:
   battery_plus: 34f72fa2afeeea83bbae306c72a25828d3ec727a
   connectivity_plus: 2a701ffec2c0ae28a48cf7540e279787e77c447d
   device_info_plus: bf2e3232933866d73fe290f2942f2156cdd10342
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  ios_platform_images: b961766688fe9ba740c6bd2be22302fa831491d3
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
   sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
-  stream_video_flutter: 255511a090364f98488e765d6643ef8955251b5e
-  stream_webrtc_flutter: 0baf5701f25e185736e9b41e69939141ef7de3f4
-  StreamWebRTC: f76cc9fe247008bd50f1f5160b37e4b7548c8153
+  stream_video_flutter: 9eb15be0c31d8686ad396ac38d2617bcc0dd14a3
+  stream_webrtc_flutter: 98d9d1389968c7bab46e5db7c04a649c2f38087c
+  StreamWebRTC: a50ebd8beba4def8f4e378b4895824c3520f9889
   thermal: a9261044101ae8f532fa29cab4e8270b51b3f55c
 
 PODFILE CHECKSUM: 4c438addb11b6da45ed7ae408823d68256222460

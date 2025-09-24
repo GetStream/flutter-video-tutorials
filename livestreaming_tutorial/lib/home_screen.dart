@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:livestreaming_tutorial/livestream_screen.dart';
-import 'package:stream_video/stream_video.dart';
 import 'package:stream_video_flutter/stream_video_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -98,6 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
     // Our local app user can join and receive events
     await call.join(connectOptions: connectOptions);
 
+    if (!mounted) return;
+
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => LiveStreamScreen(livestreamCall: call),
@@ -127,6 +128,8 @@ class _HomeScreenState extends State<HomeScreen> {
         debugPrint('Not able to join the call: ${failure.error}');
         return;
       }
+
+      if (!mounted) return;
 
       Navigator.of(context).push(
         MaterialPageRoute(
