@@ -1,6 +1,32 @@
-/// Replace the values below with your own Stream API keys and sample user data if you want to test your Stream app.
-/// For development, you can generate user tokens with our online tool: https://getstream.io/chat/docs/flutter-dart/tokens_and_authentication/#manually-generating-tokens
-/// For production apps, generate tokens on your server rather than in the client.
+/// This project is a sample app created based on the ringing tutorial (https://getstream.io/video/sdk/flutter/tutorial/ringing/).
+/// It's also a great playground to test your ringing setup configured in your Stream Dashboard,
+/// as it should work seamlessly with this app once properly configured.
+///
+/// CONFIGURATION REQUIRED TO USE YOUR OWN STREAM CREDENTIALS
+///
+/// To use this project with your Stream App credentials, you need to complete the following steps:
+/// For more detailed instructions, see the README.md file in this project.
+///
+/// 1. ADD GOOGLE SERVICES FILES:
+///    - Add your `google-services.json` file to `android/app/` directory
+///    - Add your `GoogleService-Info.plist` file to `ios/Runner/` directory
+///
+/// 2. UPDATE ANDROID APPLICATION ID:
+///    - In `android/app/build.gradle`, change the `applicationId` to match the one referenced in your `google-services.json`
+///
+/// 3. UPDATE iOS BUNDLE IDENTIFIER:
+///    - In `ios/Runner.xcodeproj/project.pbxproj`, change the `PRODUCT_BUNDLE_IDENTIFIER` to match the one referenced in your `GoogleService-Info.plist`
+///
+/// 4. GENERATE FIREBASE OPTIONS:
+///    - Run `flutterfire configure` to generate `firebase_options.dart` with your project settings
+///    - Or copy the `firebase_options.dart` file from your existing project
+///
+/// 5. CONFIGURE STREAM DASHBOARD AND REPLACE APP KEYS:
+///    - Create a Firebase provider in Stream Dashboard for Android push notifications
+///    - Create an APN provider in Stream Dashboard for iOS push notifications
+///    - Replace the `streamApiKey` below with your Stream API key from the Stream Dashboard
+///    - Update the push provider names (`iosPushProviderName` and `androidPushProviderName`) to match your Stream Dashboard configuration
+///    - Generate new user tokens for your test users using the Stream token generator: https://getstream.io/chat/docs/flutter-dart/tokens_and_authentication/#manually-generating-tokens
 class AppKeys {
   // Your Stream API key from the Stream Dashboard
   static const String streamApiKey = 'mmhfdzb5evj2';

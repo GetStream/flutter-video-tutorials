@@ -4,6 +4,8 @@
 
 The Flutter Ringing tutorial provides a step-by-step guide to building an app with ringing functionality using Stream's Video API and Stream Video Flutter components.
 
+This project is a sample app created for tutorial purposes, but it's also a great playground to test your ringing setup configured in your Stream Dashboard, as it should work seamlessly with this app once properly configured.
+
 # Project Setup Guide
 
 ## Prerequisites
@@ -15,16 +17,22 @@ The Flutter Ringing tutorial provides a step-by-step guide to building an app wi
 
 ### Android Setup
 1. Create a new Firebase project or use an existing one
-2. Register your Android app with package name: `io.getstream.flutter.sample.ringing` or change the package name if you want to.
+2. Register your Android app with your desired package name
 3. Download `google-services.json` and place it in:
    ```
    android/app/google-services.json
    ```
-4. Create a Firebase provider in Stream dashboard, follow this [doc](https://getstream.io/video/docs/flutter/advanced/incoming-calls/providers-configuration/#creating-firebase-provider).
+4. Update the `applicationId` in `android/app/build.gradle` to match the package name referenced in your `google-services.json`
+5. Create a Firebase provider in Stream dashboard, follow this [doc](https://getstream.io/video/docs/flutter/advanced/incoming-calls/providers-configuration/#creating-firebase-provider).
 
 ### iOS Setup
-1. Change the bundle ID for the project and register it in your Apple Developer account.
-2. Create an APN provider in Stream dashboard, follow this [doc](https://getstream.io/video/docs/flutter/advanced/incoming-calls/providers-configuration/#creating-apns-provider).
+1. Register your iOS app with your desired bundle identifier in your Apple Developer account
+2. Download `GoogleService-Info.plist` and place it in:
+   ```
+   ios/Runner/GoogleService-Info.plist
+   ```
+3. Update the `PRODUCT_BUNDLE_IDENTIFIER` in `ios/Runner.xcodeproj/project.pbxproj` to match the bundle ID referenced in your `GoogleService-Info.plist`
+4. Create an APN provider in Stream dashboard, follow this [doc](https://getstream.io/video/docs/flutter/advanced/incoming-calls/providers-configuration/#creating-apns-provider).
 
 ## 2. Stream Configuration
 Update `lib/app_keys.dart` with your Stream credentials:
