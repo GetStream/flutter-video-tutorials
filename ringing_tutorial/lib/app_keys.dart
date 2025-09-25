@@ -1,4 +1,4 @@
-/// This project is a sample app created based on the ringing tutorial (link: [RINGING_TUTORIAL_LINK]).
+/// This project is a sample app created based on the ringing tutorial (https://getstream.io/video/sdk/flutter/tutorial/ringing/).
 /// It's also a great playground to test your ringing setup configured in your Stream Dashboard,
 /// as it should work seamlessly with this app once properly configured.
 ///
