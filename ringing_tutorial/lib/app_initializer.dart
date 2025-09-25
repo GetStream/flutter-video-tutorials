@@ -17,6 +17,15 @@ class AppInitializer {
       return null;
     }
 
+    if (TutorialUser.users
+        .where(
+          (user) => user.user.id == userId,
+        )
+        .isEmpty) {
+      clearStoredUser();
+      return null;
+    }
+
     return TutorialUser.users.firstWhere(
       (user) => user.user.id == userId,
     );
