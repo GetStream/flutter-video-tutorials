@@ -6,33 +6,33 @@ PODS:
   - CryptoSwift (1.8.4)
   - device_info_plus (0.0.1):
     - Flutter
-  - Firebase/CoreOnly (11.15.0):
-    - FirebaseCore (~> 11.15.0)
-  - Firebase/Messaging (11.15.0):
+  - Firebase/CoreOnly (12.2.0):
+    - FirebaseCore (~> 12.2.0)
+  - Firebase/Messaging (12.2.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 11.15.0)
-  - firebase_core (3.15.2):
-    - Firebase/CoreOnly (= 11.15.0)
+    - FirebaseMessaging (~> 12.2.0)
+  - firebase_core (4.1.1):
+    - Firebase/CoreOnly (= 12.2.0)
     - Flutter
-  - firebase_messaging (15.2.10):
-    - Firebase/Messaging (= 11.15.0)
+  - firebase_messaging (16.0.2):
+    - Firebase/Messaging (= 12.2.0)
     - firebase_core
     - Flutter
-  - FirebaseCore (11.15.0):
-    - FirebaseCoreInternal (~> 11.15.0)
+  - FirebaseCore (12.2.0):
+    - FirebaseCoreInternal (~> 12.2.0)
     - GoogleUtilities/Environment (~> 8.1)
     - GoogleUtilities/Logger (~> 8.1)
-  - FirebaseCoreInternal (11.15.0):
+  - FirebaseCoreInternal (12.2.0):
     - "GoogleUtilities/NSData+zlib (~> 8.1)"
-  - FirebaseInstallations (11.15.0):
-    - FirebaseCore (~> 11.15.0)
+  - FirebaseInstallations (12.2.0):
+    - FirebaseCore (~> 12.2.0)
     - GoogleUtilities/Environment (~> 8.1)
     - GoogleUtilities/UserDefaults (~> 8.1)
     - PromisesObjC (~> 2.4)
-  - FirebaseMessaging (11.15.0):
-    - FirebaseCore (~> 11.15.0)
-    - FirebaseInstallations (~> 11.0)
-    - GoogleDataTransport (~> 10.0)
+  - FirebaseMessaging (12.2.0):
+    - FirebaseCore (~> 12.2.0)
+    - FirebaseInstallations (~> 12.2.0)
+    - GoogleDataTransport (~> 10.1)
     - GoogleUtilities/AppDelegateSwizzler (~> 8.1)
     - GoogleUtilities/Environment (~> 8.1)
     - GoogleUtilities/Reachability (~> 8.1)
@@ -94,10 +94,8 @@ PODS:
   - stream_video_push_notification (0.9.6):
     - Flutter
     - flutter_callkit_incoming
-  - stream_webrtc_flutter (1.0.11):
+  - stream_webrtc_flutter (1.0.12):
     - Flutter
-    - StreamWebRTC (= 125.6422.070)
-  - StreamWebRTC (125.6422.070)
   - thermal (0.0.1):
     - Flutter
 
@@ -131,7 +129,6 @@ SPEC REPOS:
     - GoogleUtilities
     - nanopb
     - PromisesObjC
-    - StreamWebRTC
 
 EXTERNAL SOURCES:
   battery_plus:
@@ -172,13 +169,13 @@ SPEC CHECKSUMS:
   connectivity_plus: 2a701ffec2c0ae28a48cf7540e279787e77c447d
   CryptoSwift: e64e11850ede528a02a0f3e768cec8e9d92ecb90
   device_info_plus: bf2e3232933866d73fe290f2942f2156cdd10342
-  Firebase: d99ac19b909cd2c548339c2241ecd0d1599ab02e
-  firebase_core: 99a37263b3c27536063a7b601d9e2a49400a433c
-  firebase_messaging: bf6697c61f31c7cc0f654131212ff04c0115c2c7
-  FirebaseCore: efb3893e5b94f32b86e331e3bd6dadf18b66568e
-  FirebaseCoreInternal: 9afa45b1159304c963da48addb78275ef701c6b4
-  FirebaseInstallations: 317270fec08a5d418fdbc8429282238cab3ac843
-  FirebaseMessaging: 3b26e2cee503815e01c3701236b020aa9b576f09
+  Firebase: 26f6f8d460603af3df970ad505b16b15f5e2e9a1
+  firebase_core: c92b2e526c46f625784f19c07121cd533536d0e7
+  firebase_messaging: ef6c722ea333105264ee17cf7df9ed5ee28d8485
+  FirebaseCore: 311c48a147ad4a0ab7febbaed89e8025c67510cd
+  FirebaseCoreInternal: 56ea29f3dad2894f81b060f706f9d53509b6ed3b
+  FirebaseInstallations: 3e884b01feabdf67582a80f3250425a00979b4ed
+  FirebaseMessaging: 43ec73bbfedd0c385a849bb91593ab4ad4b9e48e
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_callkit_incoming: 417dd1b46541cdd5d855ad795ccbe97d1c18155e
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
@@ -191,11 +188,10 @@ SPEC CHECKSUMS:
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
   stream_video_flutter: 9eb15be0c31d8686ad396ac38d2617bcc0dd14a3
-  stream_video_push_notification: ffe2832250c2dcd81285767b8e0df15aa720286b
-  stream_webrtc_flutter: 98d9d1389968c7bab46e5db7c04a649c2f38087c
-  StreamWebRTC: a50ebd8beba4def8f4e378b4895824c3520f9889
+  stream_video_push_notification: ed41fa55a953e471b7c1d415affa2f55ca6e2e47
+  stream_webrtc_flutter: 39b0a5c5879bb051e53ccaee8f929dfd0dcdaf55
   thermal: a9261044101ae8f532fa29cab4e8270b51b3f55c
 
-PODFILE CHECKSUM: 4c438addb11b6da45ed7ae408823d68256222460
+PODFILE CHECKSUM: 9c46fd01abff66081b39f5fa5767b3f1d0b11d76
 
 COCOAPODS: 1.16.2

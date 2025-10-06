@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "io.getstream.video_calling_tutorial"
-    compileSdk 34
+    compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
