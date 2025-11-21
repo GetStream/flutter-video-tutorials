@@ -13,15 +13,9 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
+class _HomeScreenState extends State<HomeScreen> {
   String? createLoadingText;
   String? viewLoadingText;
-
-  @override
-  void initState() {
-    WidgetsBinding.instance.addObserver(this);
-    super.initState();
-  }
 
   String _generateRandomCallId() {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -32,23 +26,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         (_) => chars.codeUnitAt(random.nextInt(chars.length)),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      rtc.Helper.setAppleAudioIOMode(rtc.AppleAudioIOMode.none);
-      // rtc.Helper.setAndroidAudioConfiguration(
-      //     rtc.AndroidAudioConfiguration.media);
-    } else if (state == AppLifecycleState.resumed) {
-      rtc.Helper.setAppleAudioIOMode(rtc.AppleAudioIOMode.localAndRemote);
-    }
   }
 
   @override
