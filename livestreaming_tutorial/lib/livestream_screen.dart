@@ -5,9 +5,14 @@ import 'package:intl/intl.dart';
 import 'package:stream_video_flutter/stream_video_flutter.dart';
 
 class LiveStreamScreen extends StatefulWidget {
-  const LiveStreamScreen({super.key, required this.livestreamCall});
+  const LiveStreamScreen({
+    super.key,
+    required this.livestreamCall,
+    required this.callId,
+  });
 
   final Call livestreamCall;
+  final String callId;
 
   @override
   State<LiveStreamScreen> createState() => _LiveStreamScreenState();
@@ -48,6 +53,7 @@ class _LiveStreamScreenState extends State<LiveStreamScreen> {
               if (callState.isBackstage) {
                 return BackstageWidget(
                   call: widget.livestreamCall,
+                  callId: widget.callId,
                 );
               }
 
@@ -59,6 +65,7 @@ class _LiveStreamScreenState extends State<LiveStreamScreen> {
 
               return LivestreamLiveWidget(
                 call: widget.livestreamCall,
+                callId: widget.callId,
               );
             },
           ),
@@ -72,9 +79,11 @@ class BackstageWidget extends StatelessWidget {
   const BackstageWidget({
     super.key,
     required this.call,
+    required this.callId,
   });
 
   final Call call;
+  final String callId;
 
   @override
   Widget build(BuildContext context) {
@@ -85,9 +94,33 @@ class BackstageWidget extends StatelessWidget {
       builder: (context, waitingParticipantsCount) {
         return Center(
           child: Column(
-            spacing: 8,
+            spacing: 20,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.grey.shade300),
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      'Call ID',
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      callId,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 2,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
               PartialCallStateBuilder(
                   call: call,
                   selector: (state) => state.startsAt,
@@ -101,6 +134,7 @@ class BackstageWidget extends StatelessWidget {
                   }),
               if (waitingParticipantsCount > 0)
                 Text('$waitingParticipantsCount participants waiting'),
+              const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
                   call.goLive();
@@ -202,9 +236,14 @@ class _LivestreamEndedWidgetState extends State<LivestreamEndedWidget> {
 }
 
 class LivestreamLiveWidget extends StatelessWidget {
-  const LivestreamLiveWidget({super.key, required this.call});
+  const LivestreamLiveWidget({
+    super.key,
+    required this.call,
+    required this.callId,
+  });
 
   final Call call;
+  final String callId;
 
   @override
   Widget build(BuildContext context) {
@@ -228,12 +267,21 @@ class LivestreamLiveWidget extends StatelessWidget {
               callAppBarWidgetBuilder: (context, call) => CallAppBar(
                 call: call,
                 showBackButton: false,
-                title: PartialCallStateBuilder(
-                  call: call,
-                  selector: (state) => state.callParticipants.length,
-                  builder: (context, count) => Text(
-                    'Viewers: $count',
-                  ),
+                title: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    PartialCallStateBuilder(
+                      call: call,
+                      selector: (state) => state.callParticipants.length,
+                      builder: (context, count) => Text(
+                        'Viewers: $count',
+                      ),
+                    ),
+                    Text(
+                      'Call ID: $callId',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
                 ),
                 onLeaveCallTap: () {
                   call.stopLive();

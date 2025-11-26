@@ -50,6 +50,12 @@ class _AudioRoomActionsState extends State<AudioRoomActions> {
   }
 
   @override
+  void dispose() {
+    _callEventsSubscription?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<CallState>(
         initialData: widget.audioRoomCall.state.value,

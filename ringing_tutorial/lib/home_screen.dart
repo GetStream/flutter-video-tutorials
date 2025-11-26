@@ -38,15 +38,14 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
         androidPushProvider: const StreamVideoPushProvider.firebase(
           name: AppKeys.androidPushProviderName,
         ),
-        pushParams: const StreamVideoPushParams(
-          appName: 'Ringing Tutorial',
-          ios: IOSParams(iconName: 'IconMask'),
+        pushConfiguration: const StreamVideoPushConfiguration(
+          ios: IOSPushConfiguration(iconName: 'IconMask'),
         ),
         registerApnDeviceToken: true,
       ),
     )..connect();
 
-    final subscription = streamVideo.observeCallDeclinedCallKitEvent();
+    final subscription = streamVideo.observeCallDeclinedRingingEvent();
     streamVideo.disposeAfterResolvingRinging(
       disposingCallback: () => subscription?.cancel(),
     );
@@ -123,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     subscriptions.add(
       _callKitSubscription,
-      streamVideo.observeCoreCallKitEvents(
+      streamVideo.observeCoreRingingEvents(
         onCallAccepted: (callToJoin) {
           Navigator.push(
             context,

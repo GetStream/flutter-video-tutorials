@@ -6,32 +6,31 @@
 ///
 /// After updating the values below, run the app on a device or emulator.
 import 'package:flutter/material.dart';
-import 'package:livestreaming_tutorial/home_screen.dart';
-import 'package:stream_video_flutter/stream_video_flutter.dart';
+import 'package:livestreaming_tutorial/login_screen.dart';
+import 'package:livestreaming_tutorial/tutorial_user.dart';
+
+TutorialUser? storedUser;
 
 Future<void> main() async {
   // Ensure Flutter is able to communicate with Plugins
   WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MainApp());
+}
 
-  /// Replace the values below with your own Stream API keys and sample user data if you want to test your Stream app.
-  /// For development, you can generate user tokens with our online tool: https://getstream.io/chat/docs/flutter-dart/tokens_and_authentication/#manually-generating-tokens
-  /// For production apps, generate tokens on your server rather than in the client.
-  StreamVideo(
-    'mmhfdzb5evj2',
-    user: const User(
-      info: UserInfo(
-        name: 'Alice Johnson',
-        id: 'alice_johnson',
-        role: 'admin',
-      ),
-    ),
-    userToken:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYWxpY2Vfam9obnNvbiJ9.v6-yXWgbLyykj9yt_ophmaC5FCGAG9ic6p02V09CmKQ',
-  );
+class MainApp extends StatefulWidget {
+  const MainApp({
+    super.key,
+  });
 
-  runApp(
-    const MaterialApp(
-      home: HomeScreen(),
-    ),
-  );
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: LoginScreen(),
+    );
+  }
 }

@@ -7,14 +7,14 @@ environment:
   sdk: ^3.6.0
 
 dependencies:
-  firebase_core: ^3.11.0
-  firebase_messaging: ^15.2.2
+  firebase_core: ^4.1.1
+  firebase_messaging: ^16.0.2
   flutter:
     sdk: flutter
   flutter_secure_storage: ^9.2.4
-  stream_video: ^0.10.4
-  stream_video_flutter: ^0.10.4
-  stream_video_push_notification: ^0.10.4
+  stream_video: ^1.0.0
+  stream_video_flutter: ^1.0.0
+  stream_video_push_notification: ^1.0.0
   uuid: ^4.5.1
 
 dev_dependencies:
