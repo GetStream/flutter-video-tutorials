@@ -62,9 +62,8 @@ class AppInitializer {
         androidPushProvider: const StreamVideoPushProvider.firebase(
           name: AppKeys.androidPushProviderName,
         ),
-        pushParams: const StreamVideoPushParams(
-          appName: 'Ringing Tutorial',
-          ios: IOSParams(iconName: 'IconMask'),
+        pushConfiguration: const StreamVideoPushConfiguration(
+          ios: IOSPushConfiguration(iconName: 'IconMask'),
         ),
         registerApnDeviceToken: true,
       ),

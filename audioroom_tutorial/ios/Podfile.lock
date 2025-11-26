@@ -19,10 +19,8 @@ PODS:
   - stream_video_flutter (0.9.6):
     - Flutter
     - stream_webrtc_flutter
-  - stream_webrtc_flutter (1.0.11):
+  - stream_webrtc_flutter (2.2.0):
     - Flutter
-    - StreamWebRTC (= 125.6422.070)
-  - StreamWebRTC (125.6422.070)
   - thermal (0.0.1):
     - Flutter
 
@@ -38,10 +36,6 @@ DEPENDENCIES:
   - stream_video_flutter (from `.symlinks/plugins/stream_video_flutter/ios`)
   - stream_webrtc_flutter (from `.symlinks/plugins/stream_webrtc_flutter/ios`)
   - thermal (from `.symlinks/plugins/thermal/ios`)
-
-SPEC REPOS:
-  trunk:
-    - StreamWebRTC
 
 EXTERNAL SOURCES:
   battery_plus:
@@ -73,14 +67,13 @@ SPEC CHECKSUMS:
   device_info_plus: bf2e3232933866d73fe290f2942f2156cdd10342
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
-  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  path_provider_foundation: 0b743cbb62d8e47eab856f09262bb8c1ddcfe6ba
   permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
   sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
-  stream_video_flutter: 9eb15be0c31d8686ad396ac38d2617bcc0dd14a3
-  stream_webrtc_flutter: 98d9d1389968c7bab46e5db7c04a649c2f38087c
-  StreamWebRTC: a50ebd8beba4def8f4e378b4895824c3520f9889
+  stream_video_flutter: d72405271cc5a1ceb679988fee5466b464ead908
+  stream_webrtc_flutter: 3f67dbc5dcf8d3329f7f4b52b8c1be74e8070172
   thermal: a9261044101ae8f532fa29cab4e8270b51b3f55c
 
-PODFILE CHECKSUM: 4c438addb11b6da45ed7ae408823d68256222460
+PODFILE CHECKSUM: 9c46fd01abff66081b39f5fa5767b3f1d0b11d76
 
 COCOAPODS: 1.16.2

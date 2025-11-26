@@ -5,6 +5,7 @@ import 'package:livestreaming_tutorial/login_screen.dart';
 import 'package:livestreaming_tutorial/livestream_screen.dart';
 import 'package:stream_video_flutter/stream_video_flutter.dart';
 import 'package:stream_webrtc_flutter/stream_webrtc_flutter.dart' as rtc;
+import 'package:permission_handler/permission_handler.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,9 +14,42 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   String? createLoadingText;
   String? viewLoadingText;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+
+    // Request phone permission on Android to properly handle phone call interruptions
+    _requestPermissions();
+
+    // Set up handling of mobile audio interruptions that will pause/resume audio playout
+    _handleMobileAudioInterruptions();
+
+    super.initState();
+  }
+
+  void _requestPermissions() async {
+    if (CurrentPlatform.isAndroid) {
+      await Permission.phone.request();
+    }
+  }
+
+  void _handleMobileAudioInterruptions() {
+    if (!CurrentPlatform.isMobile) return;
+
+    RtcMediaDeviceNotifier.instance.handleCallInterruptionCallbacks(
+      onInterruptionStart: () {
+        rtc.Helper.pauseAudioPlayout();
+      },
+      onInterruptionEnd: () {
+        rtc.Helper.resumeAudioPlayout();
+      },
+      androidInterruptionSource: rtc.AndroidInterruptionSource.telephonyOnly,
+    );
+  }
 
   String _generateRandomCallId() {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -26,6 +60,23 @@ class _HomeScreenState extends State<HomeScreen> {
         (_) => chars.codeUnitAt(random.nextInt(chars.length)),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Handle pausing/resuming audio playout on app lifecycle changes
+    if (state == AppLifecycleState.paused) {
+      rtc.Helper.pauseAudioPlayout();
+    } else if (state == AppLifecycleState.resumed) {
+      rtc.Helper.resumeAudioPlayout();
+      rtc.Helper.regainAndroidAudioFocus();
+    }
   }
 
   @override
