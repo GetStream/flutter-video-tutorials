@@ -1,5 +1,5 @@
 package io.getstream.livestreaming_tutorial
 
-import io.flutter.embedding.android.FlutterActivity
+import io.getstream.video.flutter.stream_video_flutter.StreamFlutterActivity
 
-class MainActivity: FlutterActivity()
+class MainActivity: StreamFlutterActivity()

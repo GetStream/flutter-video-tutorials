@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _tryConsumingIncomingCallFromTerminatedState();
 
     _observeFcmMessages();
-    _observeCallKitEvents();
+    _observeRingingEvents();
   }
 
   void _tryConsumingIncomingCallFromTerminatedState() {
@@ -117,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _observeCallKitEvents() {
+  void _observeRingingEvents() {
     final streamVideo = StreamVideo.instance;
 
     subscriptions.add(

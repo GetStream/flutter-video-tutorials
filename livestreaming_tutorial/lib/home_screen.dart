@@ -42,10 +42,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
     RtcMediaDeviceNotifier.instance.handleCallInterruptionCallbacks(
       onInterruptionStart: () {
-        rtc.Helper.pauseAudioPlayout();
+        RtcMediaDeviceNotifier.instance.pauseAudioPlayout();
       },
       onInterruptionEnd: () {
-        rtc.Helper.resumeAudioPlayout();
+        RtcMediaDeviceNotifier.instance.resumeAudioPlayout();
       },
       androidInterruptionSource: rtc.AndroidInterruptionSource.telephonyOnly,
     );
@@ -72,10 +72,13 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // Handle pausing/resuming audio playout on app lifecycle changes
     if (state == AppLifecycleState.paused) {
-      rtc.Helper.pauseAudioPlayout();
+      RtcMediaDeviceNotifier.instance.pauseAudioPlayout();
     } else if (state == AppLifecycleState.resumed) {
-      rtc.Helper.resumeAudioPlayout();
-      rtc.Helper.regainAndroidAudioFocus();
+      RtcMediaDeviceNotifier.instance.resumeAudioPlayout();
+
+      if (CurrentPlatform.isAndroid) {
+        RtcMediaDeviceNotifier.instance.regainAndroidAudioFocus();
+      }
     }
   }
 
@@ -235,29 +238,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     final result = await call.getOrCreate(); // Call object is created
 
     if (result.isSuccess) {
-      // Set default behaviour for a livestream viewer
-      final connectOptions = CallConnectOptions(
-        camera: TrackOption.disabled(),
-        microphone: TrackOption.disabled(),
-      );
-
-      // Our local app user can join and receive events
-      final joinResult = await call.join(connectOptions: connectOptions);
       setState(() => viewLoadingText = null);
-
-      if (joinResult case Failure failure) {
-        debugPrint('Not able to join the call: ${failure.error}');
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content:
-                  Text('Not able to join the call: ${failure.error.message}'),
-            ),
-          );
-        }
-        return;
-      }
-
       if (!mounted) return;
 
       // Viewers see the simple player
@@ -274,7 +255,18 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 },
               ),
             ),
-            body: LivestreamPlayer(call: call),
+            body: LivestreamPlayer(
+              call: call,
+              joinBehaviour: LivestreamJoinBehaviour.autoJoinAsap,
+              connectOptions: CallConnectOptions(
+                camera: TrackOption.disabled(),
+                microphone: TrackOption.disabled(),
+              ),
+              pictureInPictureConfiguration:
+                  const PictureInPictureConfiguration(
+                enablePictureInPicture: true,
+              ),
+            ),
           ),
         ),
       );
