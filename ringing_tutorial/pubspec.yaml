@@ -12,9 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_secure_storage: ^9.2.4
-  stream_video: ^1.0.0
-  stream_video_flutter: ^1.0.0
-  stream_video_push_notification: ^1.0.0
+  stream_video: ^1.0.2
+  stream_video_flutter: ^1.0.2
+  stream_video_push_notification: ^1.0.2
   uuid: ^4.5.1
 
 dev_dependencies:
