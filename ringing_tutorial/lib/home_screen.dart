@@ -26,7 +26,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       AppKeys.streamApiKey,
       user: tutorialUser.user,
       userToken: tutorialUser.token,
-      options: const StreamVideoOptions(
+      options: StreamVideoOptions(
         logPriority: Priority.verbose,
         keepConnectionsAliveWhenInBackground: true,
       ),
@@ -45,9 +45,9 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       ),
     )..connect();
 
-    final subscription = streamVideo.observeCallDeclinedRingingEvent();
+    final subscription = streamVideo.observeCoreRingingEventsForBackground();
     streamVideo.disposeAfterResolvingRinging(
-      disposingCallback: () => subscription?.cancel(),
+      disposingCallback: () => subscription.cancel(),
     );
 
     await streamVideo.handleRingingFlowNotifications(message.data);

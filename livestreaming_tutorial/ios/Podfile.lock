@@ -21,7 +21,7 @@ PODS:
   - stream_video_flutter (0.9.6):
     - Flutter
     - stream_webrtc_flutter
-  - stream_webrtc_flutter (2.2.0):
+  - stream_webrtc_flutter (2.2.4):
     - Flutter
   - thermal (0.0.1):
     - Flutter
@@ -77,7 +77,7 @@ SPEC CHECKSUMS:
   permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
   sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
   stream_video_flutter: d72405271cc5a1ceb679988fee5466b464ead908
-  stream_webrtc_flutter: 3f67dbc5dcf8d3329f7f4b52b8c1be74e8070172
+  stream_webrtc_flutter: 59202f0868a20531efecf2e06ece414533602099
   thermal: a9261044101ae8f532fa29cab4e8270b51b3f55c
 
 PODFILE CHECKSUM: 9c46fd01abff66081b39f5fa5767b3f1d0b11d76

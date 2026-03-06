@@ -144,6 +144,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   }
 
   Future<void> _createLivestream() async {
+    RtcMediaDeviceNotifier.instance.reinitializeAudioConfiguration(
+        const AudioConfigurationPolicy.broadcaster());
+
     // Generate a random short call ID
     final callId = _generateRandomCallId();
 
@@ -219,6 +222,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   }
 
   Future<void> _viewLivestream() async {
+    RtcMediaDeviceNotifier.instance.reinitializeAudioConfiguration(
+        const AudioConfigurationPolicy.viewer());
+
     // Show dialog to get call ID from user
     final callId = await _showCallIdDialog();
     if (callId == null || callId.isEmpty) {
