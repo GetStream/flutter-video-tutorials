@@ -50,7 +50,7 @@ class AppInitializer {
       AppKeys.streamApiKey,
       user: tutorialUser.user,
       userToken: tutorialUser.token,
-      options: const StreamVideoOptions(
+      options: StreamVideoOptions(
         logPriority: Priority.verbose,
         keepConnectionsAliveWhenInBackground: true,
       ),

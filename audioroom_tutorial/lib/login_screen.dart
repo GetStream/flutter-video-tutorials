@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ? () async {
                             await StreamVideo(
                               AppKeys.streamApiKey,
-                              options: const StreamVideoOptions(),
+                              options: StreamVideoOptions(),
                               user: selectedUser!.user,
                               userToken: selectedUser!.token,
                             ).connect();
@@ -77,5 +77,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-
