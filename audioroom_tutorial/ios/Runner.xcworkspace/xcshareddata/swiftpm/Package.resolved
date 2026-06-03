@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "stream-video-swift-webrtc",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/GetStream/stream-video-swift-webrtc.git",
+      "state" : {
+        "revision" : "af8bb8ff4da92953567d777baba55369f998dc01",
+        "version" : "137.0.54"
+      }
+    }
+  ],
+  "version" : 2
+}
