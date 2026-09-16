@@ -157,10 +157,10 @@ packages:
     dependency: transitive
     description:
       name: dart_webrtc
-      sha256: "51bcda4ba5d7dd9e65a309244ce3ac0b58025e6e1f6d7442cee4cd02134ef65f"
+      sha256: "078e3c431500147e5cc52b3c6ea41ed538f30c7720cc2467d2186c9251e62716"
       url: "https://pub.dev"
     source: hosted
-    version: "1.6.0"
+    version: "1.8.2"
   dbus:
     dependency: transitive
     description:
@@ -309,14 +309,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.5"
-  js:
-    dependency: transitive
-    description:
-      name: js
-      sha256: "53385261521cc4a0c4658fd0ad07a7d14591cf8fc33abbceae306ddb974888dc"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.2"
   leak_tracker:
     dependency: transitive
     description:
@@ -685,27 +677,25 @@ packages:
   stream_video:
     dependency: "direct main"
     description:
-      name: stream_video
-      sha256: a6c0cdba1d9b8745bae678054a8ca32856df0baad23189316379bbabbd3b4efd
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.4.0"
+      path: "../../stream-video-flutter/packages/stream_video"
+      relative: true
+    source: path
+    version: "1.6.0"
   stream_video_flutter:
     dependency: "direct main"
     description:
-      name: stream_video_flutter
-      sha256: "0f1bd3e351aabb71f7737529f9f072a5feb4e1b219cf158532e1c137d30ef980"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.4.0"
+      path: "../../stream-video-flutter/packages/stream_video_flutter"
+      relative: true
+    source: path
+    version: "1.6.0"
   stream_webrtc_flutter:
     dependency: transitive
     description:
       name: stream_webrtc_flutter
-      sha256: e7f5c8d69e7d1219828d663c1bca5ae83a94a6f01d6f1c324de93135f66e3cbb
+      sha256: "6938c87d6054e7ddcd5114641f7173e84f000f14aedfc57651c1115726dcf356"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "3.2.0"
   string_scanner:
     dependency: transitive
     description:
@@ -883,5 +873,5 @@ packages:
     source: hosted
     version: "6.6.1"
 sdks:
-  dart: ">=3.10.0-0 <4.0.0"
-  flutter: ">=3.35.0"
+  dart: ">=3.10.0 <4.0.0"
+  flutter: ">=3.38.1"

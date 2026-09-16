@@ -64,6 +64,12 @@ class AppInitializer {
         ),
         pushConfiguration: const StreamVideoPushConfiguration(
           ios: IOSPushConfiguration(iconName: 'IconMask'),
+          android: AndroidPushConfiguration(
+            telecom: TelecomPushConfiguration(
+              enabled: true,
+              schema: 'ringingtutorial',
+            ),
+          ),
         ),
         registerApnDeviceToken: true,
       ),
