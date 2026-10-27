@@ -1,32 +1,51 @@
+import 'package:audioroom_tutorial/env_setup.dart';
+
 /// This project is a sample app created based on the audio room tutorial.
 /// It's also a great playground to test your audio room setup configured in your Stream Dashboard.
 ///
-/// CONFIGURATION REQUIRED TO USE YOUR OWN STREAM CREDENTIALS
+/// The API key and the user tokens are not part of the source code. They are
+/// read from `env/env.json` when the app starts, see [AppKeys.load].
 ///
-/// To use this project with your Stream App credentials, you need to complete the following steps:
-///
-/// 1. CONFIGURE STREAM DASHBOARD AND REPLACE APP KEYS:
-///    - Replace the `streamApiKey` below with your Stream API key from the Stream Dashboard
-///    - Generate new user tokens for your test users using the Stream token generator: https://getstream.io/chat/docs/flutter-dart/tokens_and_authentication/#manually-generating-tokens
+/// Create `env/env.json` by running `scripts/generate_env.sh` from the
+/// repository root, or copy `env/env.example.json` and fill it in by hand. See
+/// the README for details.
 class AppKeys {
+  AppKeys._();
+
+  static Map<String, String> _env = const {};
+
+  /// Reads the values from `env/env.json`. Call before using the keys.
+  static Future<void> load() async => _env = await loadEnv();
+
   // Your Stream API key from the Stream Dashboard
-  static const String streamApiKey = 'mmhfdzb5evj2';
+  static String get streamApiKey => _env['STREAM_API_KEY'] ?? '';
 
   // User 1 credentials
   static const String user1Id = 'alice_johnson_audioroom';
   static const String user1Name = 'Alice Johnson';
-  static const String user1Token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYWxpY2Vfam9obnNvbl9hdWRpb3Jvb20ifQ.h-ESBFCHUqM5HtCDN2BJCsowBS_cSqb-fMa5WV-t3DY';
+  static String get user1Token =>
+      _env['STREAM_TOKEN_ALICE_JOHNSON_AUDIOROOM'] ?? '';
 
   // User 2 credentials
   static const String user2Id = 'bob_smith_audioroom';
   static const String user2Name = 'Bob Smith';
-  static const String user2Token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYm9iX3NtaXRoX2F1ZGlvcm9vbSJ9.k4tUhE42ki1cntOnzJ8gNkJOgiJLVdPIJDV-G_Z3WoI';
+  static String get user2Token =>
+      _env['STREAM_TOKEN_BOB_SMITH_AUDIOROOM'] ?? '';
 
   // User 3 credentials
   static const String user3Id = 'charlie_brown_audioroom';
   static const String user3Name = 'Charlie Brown';
-  static const String user3Token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiY2hhcmxpZV9icm93bl9hdWRpb3Jvb20ifQ.h79veCz7VMRf-HDy3EBk4wvbBJSnu9rk-PszaGEc3MU';
+  static String get user3Token =>
+      _env['STREAM_TOKEN_CHARLIE_BROWN_AUDIOROOM'] ?? '';
+
+  /// The names of the `env/env.json` entries that are missing or empty.
+  static List<String> get missingEnvKeys => [
+    for (final key in const [
+      'STREAM_API_KEY',
+      'STREAM_TOKEN_ALICE_JOHNSON_AUDIOROOM',
+      'STREAM_TOKEN_BOB_SMITH_AUDIOROOM',
+      'STREAM_TOKEN_CHARLIE_BROWN_AUDIOROOM',
+    ])
+      if ((_env[key] ?? '').isEmpty) key,
+  ];
 }
