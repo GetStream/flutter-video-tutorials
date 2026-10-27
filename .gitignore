@@ -1,2 +1,5 @@
 **/.cxx
 .DS_Store
+
+# Stream credentials, see env/env.example.json in each tutorial.
+env.json

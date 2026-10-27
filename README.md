@@ -9,6 +9,18 @@ Using our SDK, developers can opt to use our customizable out-of-the-box solutio
 
 This repository contains the example projects for the [tutorials](https://getstream.io/video/sdk/flutter/) for the Stream Video Flutter SDK.
 
+## Running the Tutorials
+
+The tutorial projects don't contain any Stream credentials. Each one reads your API key and user tokens from `env/env.json`, which git ignores. Create one for every tutorial with the generator script. It asks for your API key and secret from the [Stream Dashboard](https://dashboard.getstream.io/) and signs the user tokens locally. The secret is not stored:
+
+```bash
+scripts/generate_env.sh
+```
+
+To configure only some tutorials, pass their directories, for example `scripts/generate_env.sh video_calling_tutorial`. You can also copy a tutorial's `env/env.example.json` to `env/env.json` and fill it in yourself.
+
+Then run the tutorial as usual with `flutter run` or from your IDE. See the README of each tutorial for the values it needs. The ringing tutorial also needs your own Firebase project.
+
 ## Flutter Video Calling Tutorial
 
 <img src="readme-assets/card-video-calling.png" alt="Video Calling Header image" style="box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); border-radius: 1rem" />

@@ -11,7 +11,7 @@ This project is a sample app created for tutorial purposes, but it's also a grea
 ## Prerequisites
 - A Stream account with created App (https://dashboard.getstream.io)
 - Firebase project for push notifications
-- Your Stream API Key and User Tokens
+- Your Stream API key and secret, or user tokens generated for the tutorial users
 
 ## 1. Firebase Configuration
 
@@ -35,38 +35,32 @@ This project is a sample app created for tutorial purposes, but it's also a grea
 4. Create an APN provider in Stream dashboard, follow this [doc](https://getstream.io/video/docs/flutter/advanced/incoming-calls/providers-configuration/#creating-apns-provider).
 
 ## 2. Stream Configuration
-Update `lib/app_keys.dart` with your Stream credentials:
 
-```dart
-class AppKeys {
-  // Your Stream API key from the Stream Dashboard
-  static const String streamApiKey = 'YOUR_STREAM_API_KEY';
-  
-  // Push notification provider names (configure these in Stream Dashboard)
-  static const String iosPushProviderName = 'YOUR_APN_PROVIDER_NAME';
-  static const String androidPushProviderName = 'YOUR_FIREBASE_PROVIDER_NAME';
+The project doesn't contain any Stream credentials. It reads the API key and the user tokens from `env/env.json` when it starts:
 
-  // Configure at least two test users for the demo
-  // User 1
-  static const String user1Id = 'YOUR_USER_1_ID';
-  static const String user1Name = 'YOUR_USER_1_NAME';
-  static const String user1Token = 'YOUR_USER_1_TOKEN'; 
+| Key | Value |
+| --- | --- |
+| `STREAM_API_KEY` | Your Stream API key from the [Stream Dashboard](https://dashboard.getstream.io/) |
+| `STREAM_IOS_PUSH_PROVIDER` | Name of your APN provider in the Stream Dashboard. Defaults to `apn-flutter-sample` |
+| `STREAM_ANDROID_PUSH_PROVIDER` | Name of your Firebase provider in the Stream Dashboard. Defaults to `flutter-firebase` |
+| `STREAM_TOKEN_ALICE_JOHNSON` | A user token for `alice_johnson` |
+| `STREAM_TOKEN_BOB_SMITH` | A user token for `bob_smith` |
+| `STREAM_TOKEN_CHARLIE_BROWN` | A user token for `charlie_brown` |
 
-  // User 2
-  static const String user2Id = 'YOUR_USER_2_ID';
-  static const String user2Name = 'YOUR_USER_2_NAME';
-  static const String user2Token = 'YOUR_USER_2_TOKEN';
+The quickest way to create it is the generator script in the repository root. It asks for your API key and secret from the [Stream Dashboard](https://dashboard.getstream.io/) and signs the tokens locally. The secret is not stored:
 
-  // User 3 (optional)
-  static const String user3Id = 'YOUR_USER_3_ID';
-  static const String user3Name = 'YOUR_USER_3_NAME';
-  static const String user3Token = 'YOUR_USER_3_TOKEN';
-}
+```bash
+scripts/generate_env.sh ringing_tutorial
 ```
 
-### How to Generate User Tokens
-For testing purposes user tokens can be generated once and harcoded in the app.
-For this purpose we have [this simple form](https://getstream.io/chat/docs/flutter-dart/tokens_and_authentication/#manually-generating-tokens) where you can generate a token providing Stream app secret and user Id.
+The generator script keeps the push provider names from `env/env.example.json`. Change them in `env/env.json` if your providers in the Stream Dashboard are named differently.
+
+Alternatively, copy `env/env.example.json` to `env/env.json` and fill in the values yourself. You can generate user tokens with the [token generator](https://getstream.io/chat/docs/flutter-dart/tokens_and_authentication/#manually-generating-tokens).
+
+Then run the app as usual with `flutter run` or from your IDE. If `env/env.json` is missing values, the app shows a setup screen listing them. `env/env.json` is ignored by git, so your credentials stay out of the repository.
+
+> [!NOTE]
+> `env/env.json` is bundled with the app, and tokens created this way don't expire. That's fine for trying the tutorial out, but in a production app, generate tokens on your server.
 
 ## 3. Firebase Options
 The `lib/firebase_options.dart` file will be automatically generated when you run:
@@ -93,7 +87,7 @@ dart pub global activate flutterfire_cli
 - **Symptoms**: Authentication failures, sudden disconnections
 - **Solutions**:
   - Check token expiration date (use [jwt.io](https://jwt.io) to verify)
-  - Ensure you're using your app's secret to generate tokens, not demo tokens
+  - Ensure the tokens were generated with the secret of the app whose API key is in `env/env.json`
 
 #### 3. Ringing Functionality Issues
 - **Symptoms**: Call notifications not working, ringing not functioning
@@ -102,7 +96,7 @@ dart pub global activate flutterfire_cli
   - Verify you're not trying to call yourself (same user on different devices)
   - Confirm that call recipients have connected to Stream at least once
   - Check that members exist on Stream's platform
-  - Check provider names match in Stream Dashboard
+  - Check the provider names in `env/env.json` match the Stream Dashboard
   - Ensure all certificates and keys are valid
 
 #### 4. iOS CallKit Integration Issues

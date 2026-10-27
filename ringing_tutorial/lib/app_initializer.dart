@@ -56,10 +56,10 @@ class AppInitializer {
       ),
       pushNotificationManagerProvider:
           StreamVideoPushNotificationManager.create(
-        iosPushProvider: const StreamVideoPushProvider.apn(
+        iosPushProvider: StreamVideoPushProvider.apn(
           name: AppKeys.iosPushProviderName,
         ),
-        androidPushProvider: const StreamVideoPushProvider.firebase(
+        androidPushProvider: StreamVideoPushProvider.firebase(
           name: AppKeys.androidPushProviderName,
         ),
         pushConfiguration: const StreamVideoPushConfiguration(

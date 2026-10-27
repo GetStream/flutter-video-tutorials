@@ -15,6 +15,11 @@ import 'package:uuid/uuid.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // Runs in its own isolate, so the keys have to be loaded here as well.
+  WidgetsFlutterBinding.ensureInitialized();
+  await AppKeys.load();
+  if (AppKeys.missingEnvKeys.isNotEmpty) return;
+
   // Initialise Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
@@ -32,10 +37,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       ),
       pushNotificationManagerProvider:
           StreamVideoPushNotificationManager.create(
-        iosPushProvider: const StreamVideoPushProvider.apn(
+        iosPushProvider: StreamVideoPushProvider.apn(
           name: AppKeys.iosPushProviderName,
         ),
-        androidPushProvider: const StreamVideoPushProvider.firebase(
+        androidPushProvider: StreamVideoPushProvider.firebase(
           name: AppKeys.androidPushProviderName,
         ),
         pushConfiguration: const StreamVideoPushConfiguration(

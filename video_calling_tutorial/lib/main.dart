@@ -2,28 +2,37 @@
 /// Sample app for the Stream Video Calling tutorial.
 ///
 /// This project is a minimal example used in the tutorial to demonstrate
-/// basic setup and usage. You can test it with demo credentials or replace them with your own
+/// basic setup and usage. It reads your Stream API key and user tokens from
+/// `env/env.json`, see the README for how to create it.
 ///
-/// After updating the values below, run the app on a device or emulator.
+/// After creating `env/env.json`, run the app on a device or emulator.
 import 'package:flutter/material.dart';
 import 'package:stream_video_flutter/stream_video_flutter.dart';
+import 'package:video_calling_tutorial/app_keys.dart';
 import 'package:video_calling_tutorial/call_screen.dart';
+import 'package:video_calling_tutorial/env_setup.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  /// Replace the values below with your own Stream API keys and sample user data if you want to test your Stream app.
-  /// For development, you can generate user tokens with our online tool: https://getstream.io/chat/docs/flutter-dart/tokens_and_authentication/#manually-generating-tokens
-  /// For production apps, generate tokens on your server rather than in the client.
+  await AppKeys.load();
+  final missingEnvKeys = AppKeys.missingEnvKeys;
+  if (missingEnvKeys.isNotEmpty) {
+    runApp(MissingEnvApp(missingKeys: missingEnvKeys));
+    return;
+  }
+
+  /// The API key and the user token are read from `env/env.json`, see the
+  /// README. For production apps, generate tokens on your server rather than
+  /// in the client.
   StreamVideo(
-    'mmhfdzb5evj2',
+    AppKeys.streamApiKey,
     user: User.regular(
-      userId: 'alice_johnson',
+      userId: AppKeys.user1Id,
       role: 'admin',
-      name: 'Alice Johnson',
+      name: AppKeys.user1Name,
     ),
-    userToken:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYWxpY2Vfam9obnNvbiJ9.v6-yXWgbLyykj9yt_ophmaC5FCGAG9ic6p02V09CmKQ',
+    userToken: AppKeys.user1Token,
   );
 
   runApp(const MyApp());
