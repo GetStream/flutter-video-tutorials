@@ -1,24 +1,16 @@
+# Flutter core classes
+-keep class io.flutter.plugin.**  { *; }
+-keep class io.flutter.util.**  { *; }
+-keep class io.flutter.view.**  { *; }
+-keep class io.flutter.plugins.**  { *; }
+-keep class io.flutter.embedding.** { *; }
+-keep class io.flutter.app.** { *; }
+
+-keep class io.getstream.video.flutter.stream_video_push_notification.** { *; }
+
+# Suppress warnings for common missing classes
 -dontwarn java.beans.ConstructorProperties
 -dontwarn java.beans.Transient
--dontwarn org.conscrypt.Conscrypt
--dontwarn org.conscrypt.OpenSSLProvider
+-dontwarn org.conscrypt.**
 -dontwarn org.w3c.dom.bootstrap.DOMImplementationRegistry
-
--keepattributes *Annotation*
-
-# Keep Java Beans Annotations
--keep class java.beans.** { *; }
-
-# Keep Jackson Databind
--keep class com.fasterxml.jackson.databind.** { *; }
--keep class com.fasterxml.jackson.core.** { *; }
--keep class com.fasterxml.jackson.** { *; }
-
-# Keep Conscrypt classes (for OkHttp)
--keep class org.conscrypt.** { *; }
-
-# Keep DOMImplementationRegistry
--keep class org.w3c.dom.bootstrap.DOMImplementationRegistry { *; }
-
-# Keep flutter_callkit_incoming keys
- -keep class com.hiennv.flutter_callkit_incoming.** { *; }
+-dontwarn com.google.android.play.core.**

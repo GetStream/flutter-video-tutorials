@@ -9,6 +9,18 @@ import 'package:stream_video_push_notification/stream_video_push_notification.da
 class AppInitializer {
   static const storedUserKey = 'loggedInUserId';
 
+  // Shared by the app and the background message handler. Each push manager
+  // persists this config natively, so both must pass the same one.
+  static const pushConfiguration = StreamVideoPushConfiguration(
+    ios: IOSPushConfiguration(iconName: 'IconMask'),
+    android: AndroidPushConfiguration(
+      telecom: TelecomPushConfiguration(
+        enabled: true,
+        schema: 'ringingtutorial',
+      ),
+    ),
+  );
+
   static Future<TutorialUser?> getStoredUser() async {
     final storage = FlutterSecureStorage();
 
@@ -22,7 +34,7 @@ class AppInitializer {
           (user) => user.user.id == userId,
         )
         .isEmpty) {
-      clearStoredUser();
+      await clearStoredUser();
       return null;
     }
 
@@ -62,15 +74,7 @@ class AppInitializer {
         androidPushProvider: const StreamVideoPushProvider.firebase(
           name: AppKeys.androidPushProviderName,
         ),
-        pushConfiguration: const StreamVideoPushConfiguration(
-          ios: IOSPushConfiguration(iconName: 'IconMask'),
-          android: AndroidPushConfiguration(
-            telecom: TelecomPushConfiguration(
-              enabled: true,
-              schema: 'ringingtutorial',
-            ),
-          ),
-        ),
+        pushConfiguration: pushConfiguration,
         registerApnDeviceToken: true,
       ),
     )..connect();
