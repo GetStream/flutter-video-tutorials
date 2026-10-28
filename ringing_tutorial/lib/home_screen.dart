@@ -38,9 +38,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
         androidPushProvider: const StreamVideoPushProvider.firebase(
           name: AppKeys.androidPushProviderName,
         ),
-        pushConfiguration: const StreamVideoPushConfiguration(
-          ios: IOSPushConfiguration(iconName: 'IconMask'),
-        ),
+        pushConfiguration: AppInitializer.pushConfiguration,
         registerApnDeviceToken: true,
       ),
     )..connect();

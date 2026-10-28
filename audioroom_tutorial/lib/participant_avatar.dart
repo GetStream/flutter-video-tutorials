@@ -30,7 +30,9 @@ class ParticipantAvatar extends StatelessWidget {
                 : null,
         child: participantState.image == null || participantState.image!.isEmpty
             ? Text(
-                participantState.name.substring(0, 1).toUpperCase(),
+                participantState.name.isNotEmpty
+                    ? participantState.name[0].toUpperCase()
+                    : '?',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,

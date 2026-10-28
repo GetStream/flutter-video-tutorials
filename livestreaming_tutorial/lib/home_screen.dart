@@ -151,6 +151,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     final call = StreamVideo.instance.makeCall(
       callType: StreamCallType.liveStream(),
       id: callId,
+      preferences: DefaultCallPreferences(
+        audioConfigurationPolicy: const AudioConfigurationPolicy.broadcaster(),
+      ),
     );
 
     // Create the call and set the current user as a host
@@ -233,6 +236,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     final call = StreamVideo.instance.makeCall(
       callType: StreamCallType.liveStream(),
       id: callId,
+      preferences: DefaultCallPreferences(
+        audioConfigurationPolicy: const AudioConfigurationPolicy.viewer(),
+      ),
     );
 
     final result = await call.getOrCreate(); // Call object is created

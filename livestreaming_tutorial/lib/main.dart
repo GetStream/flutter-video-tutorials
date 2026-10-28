@@ -7,9 +7,6 @@
 /// After updating the values below, run the app on a device or emulator.
 import 'package:flutter/material.dart';
 import 'package:livestreaming_tutorial/login_screen.dart';
-import 'package:livestreaming_tutorial/tutorial_user.dart';
-
-TutorialUser? storedUser;
 
 Future<void> main() async {
   // Ensure Flutter is able to communicate with Plugins

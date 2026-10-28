@@ -72,11 +72,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 id: 'REPLACE_WITH_CALL_ID',
               );
 
-              await call.getOrCreate();
+              final result = await call.getOrCreate();
+
+              if (result.isFailure) {
+                debugPrint(
+                  'Could not create the call: ${result.getErrorOrNull()}',
+                );
+                return;
+              }
+
+              // call.join() is what sets up the audio and video connection.
+              await call.join();
 
               if (!context.mounted) return;
 
-              // Created ahead
+              // Created in Step 4
               Navigator.push(
                 context,
                 MaterialPageRoute(
